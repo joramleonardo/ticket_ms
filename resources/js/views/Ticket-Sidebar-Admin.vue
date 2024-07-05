@@ -3,6 +3,12 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
+                    <router-link to="/home/technical" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="" exact>
+                        <div class="sb-nav-link-icon">
+                            <!-- <i class="fas fa-arrow-right"></i> -->
+                        </div>
+                        Create Ticket
+                    </router-link>
                     <router-link to="/ticket/admin/status" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="" exact>
                         <div class="sb-nav-link-icon">
                             <!-- <i class="fas fa-arrow-right"></i> -->

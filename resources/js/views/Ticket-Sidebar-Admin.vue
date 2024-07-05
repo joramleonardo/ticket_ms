@@ -7,7 +7,7 @@
                         <div class="sb-nav-link-icon">
                             <!-- <i class="fas fa-arrow-right"></i> -->
                         </div>
-                        <b>TICKETS</b>
+                        <b>TICKETSs</b>
                     </router-link>
                     <!-- <div class="collapse" id="collapse_sciencejourno" aria-labelledby="headingOne" data-parent="#sidenavAccordion" > -->
                     <div >

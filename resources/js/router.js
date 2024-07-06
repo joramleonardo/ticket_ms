@@ -46,6 +46,8 @@ import Ticket_Public_Dashboard from './views/Ticket-Public-Dashboard.vue';
 import Ticket_Public_Status from './views/Ticket-Public-Status.vue';
 import Ticket_Public_Completed from './views/Ticket-Public-Completed.vue';
 
+import Ticket_New_Employee from './views/New_Ticket_Employee.vue';
+
 
 Vue.use(Router);
 
@@ -179,6 +181,11 @@ const routes = [
                 path: '/ticket/admin/rescheduled',
                 name: 'ticket-admin-rescheduled',
                 component: Ticket_Admin_Rescheduled,
+            },
+            {
+                path: '/ticket/new/employee',
+                name: 'ticket-new-employee',
+                component: Ticket_New_Employee,
             }
         ],
     },

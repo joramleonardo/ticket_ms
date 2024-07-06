@@ -101,7 +101,7 @@
                     </router-link>
                     <div >
                         <nav class="sb-sidenav-menu-nested nav">
-                            <router-link to="/ticket/admin/status" class="nav-link" exact>
+                            <router-link to="/ticket/new/employee" class="nav-link" exact>
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-circle" style="color: #3c3e3e"></i>
                                 </div>

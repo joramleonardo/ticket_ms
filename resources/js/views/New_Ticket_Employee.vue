@@ -2,131 +2,135 @@
   <div class="container-fluid">
     <h1 class="mt-4 admin-header-title">CREATE A TICKET</h1>
     <div class="breakcrumbs mt-3">
-        Home > Create Ticket > <span class="admin-sub-header-title">DOST-STII Employee</span>
+        Home > Create Ticket > <span class="admin-sub-header-title" style="font-weight:700">DOST-STII Employee</span>
     </div>
     <div class="row mt-4">
         <div class="col-xl-12">
         <b-card class="m-2">
-                    <b-container fluid>
-                            <b-row class="mb-3">
-                                <b-col lg="5" class="my-1">
-                                    <b-form-group label="Filter" label-for="filter-input" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0" >
-                                        <b-input-group size="sm">
-                                            <b-form-input id="filter-input" v-model="filter" type="search" placeholder="Type to Search" ></b-form-input>
-                                            <b-input-group-append>
-                                                <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
-                                            </b-input-group-append>
-                                        </b-input-group>
+            <form class="loginForm" id="loginForm" v-on:submit.prevent="createTicket">
+                    <div class="">
+                            
+                            <div style="margin-botton: 15px">
+                                <span style="font-size: 12px; color: red; font-style: italic; ">* Required Fields</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group" id="form_externalEventDate">
+                                        <label for="entryDate" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Entry Date <span style="font-style:italic">(Same as date of request)</span></label>
+                                        <label style="font-size: 10px; color: red; font-style:italic">(For reference number)</label>
+                                        <b-form-input pattern="\d{1,2}/\d{1,2}/\d{4}" required v-model="ticketData.entryDate" id="entryDate" type="date" class="input" style="text-transform:uppercase; background: #fff; border: 1px solid #ced4da !important; color: black"></b-form-input>
                                     </b-form-group>
-                                </b-col>
-                                <!-- <b-col lg="3" class="my-1">
-                                    <b-form-group label="Per page" label-for="per-page-select" label-cols-sm="6" label-cols-md="4" label-cols-lg="3" label-align-sm="right" label-size="sm" class="mb-0">
-                                        <b-form-select id="per-page-select" v-model="perPage" :options="pageOptions" size="sm"></b-form-select>
+                                </div>
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group" id="form_employeeId">
+                                        <label for="employee_code" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Employee ID:</label>
+                                        <b-form-input required v-model="ticketData.employee_code" id="employee_code" name="employee_code" type="text" class="input" style="text-transform:uppercase; background: #fff; border: 1px solid #ced4da !important; color: black"></b-form-input>
+                                    </b-form-group>   
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group" id="form_externalEventDate">
+                                        <label for="entryDate" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Date of Request:</label>
+                                        <b-form-input pattern="\d{1,2}/\d{1,2}/\d{4}" required v-model="ticketData.ticket_created" id="entryDate" type="date" class="input" style="text-transform:uppercase; background: #fff; border: 1px solid #ced4da !important; color: black"></b-form-input>
+                                    </b-form-group> 
+                                </div>
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group" id="form_externalEventDate">
+                                        <label for="entryDate" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Date Accomplished:</label>
+                                        <b-form-input pattern="\d{1,2}/\d{1,2}/\d{4}" required v-model="ticketData.ticket_completed" id="entryDate" type="date" class="input" style="text-transform:uppercase; background: #fff; border: 1px solid #ced4da !important; color: black"></b-form-input>
+                                    </b-form-group> 
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group" id="form_employeeId">
+                                        <label for="employee_code" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Request Type:</label>
+                                        <b-form-select v-model="ticketData.supportType" :options="options_supportType"></b-form-select>
+                                    </b-form-group> 
+                                </div>
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group">
+                                        <label for="mode" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Mode:<span style="font-style: italic; font-size: 10px; text-transform: none"></span></label>
+                                        <!-- <select required v-model="ticketData.mode" id="mode" name="mode">
+                                            <option value="" disabled>Select here</option>
+                                            <option value="Service Form">Service Form</option>
+                                            <option value="Online Form">Online Form</option>
+                                        </select> -->
+                                        <b-form-select v-model="ticketData.mode" :options="options_mode"></b-form-select>
                                     </b-form-group>
-                                </b-col> -->
-                                <b-col lg="2" class="my-1">
-                                    <b-form-group label="Sort" label-for="sort-by-select" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0" v-slot="{ ariaDescribedby }">
-                                        <b-input-group size="sm">
-                                            <!-- <b-form-select id="sort-by-select" v-model="sortBy" :options="sortOptions" :aria-describedby="ariaDescribedby" class="w-75">
-                                                <template #first>
-                                                <option value="">-- none --</option>
-                                                </template>
-                                            </b-form-select> -->
-
-                                            <b-form-select v-model="sortDesc" :disabled="!sortBy" :aria-describedby="ariaDescribedby" size="sm" class="w-25">
-                                                <option :value="false">Asc</option>
-                                                <option :value="true">Desc</option>
-                                            </b-form-select>
-                                        </b-input-group>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group">
+                                        <label for="type" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Select Nature of Support<span style="font-style: italic; font-size: 10px; text-transform: none"></span></label>
+                                        <select required @change="switchSelect_Division($event)" id="natureOfSupport" v-model="ticketData.natureOfSupport">
+                                            <option value="" disabled>Choose</option>
+                                            <option value="Hardware">Hardware</option>
+                                            <option value="Software">Software</option>
+                                            <option value="Hardware and Software">Hardware and Software</option>
+                                            <option value="System update / development">System update / development</option>
+                                            <option value="NA">NA</option>
+                                        </select>
                                     </b-form-group>
-                                </b-col>
-                            </b-row>
-                                <b-table striped hover 
-                                :items="ticket"
-                                :fields="fields_PENDING"
-                                :current-page="currentPage"
-                                :per-page="perPage"
-                                :filter="filter"
-                                :filter-included-fields="filterOn"
-                                :sort-by.sync="sortBy"
-                                :sort-desc.sync="sortDesc"
-                                :sort-direction="sortDirection"
-                                stacked="md"
-                                show-empty
-                                >
-                                    <template #cell(reference_code)="row">
-                                        <b>{{ row.value}}</b>
-                                    </template>
-                                    <template #cell(externalName)="row">
-                                        {{ row.value.toUpperCase()}}
-                                    </template>
-                                    <template #cell(internal_external)="row">
-                                        <div v-if="row.item.internal_external === 'Internal'">
-                                            <b-badge class="mr-1 badge" variant="success">Internal</b-badge>
-                                        </div>
-                                        <div v-if="row.item.internal_external === 'External'">
-                                            <b-badge class="mr-1 badge" variant="primary">External</b-badge>
-                                        </div>
-                                    </template>
-                                    <template #cell(externalOtherType)="row">
-                                        <div v-if="row.item.externalOtherType === 'undefined'">
-                                            None
-                                        </div>
-                                        <div v-if="row.item.externalOtherType === 'Zoom only'">
-                                            None aa
-                                        </div>
-                                        <!-- <div v-else>
-                                            {{ row.value}}
-                                        </div> -->
-                                    </template>
-                                    <template #cell(supportType)="row">
-                                        <b style="color:rgb(35, 132, 179)">{{ row.value}}</b>
-                                    </template>
-                                    <template #cell(attended_by)="row">
-                                        <div v-if="row.item.attended_by === ''">
-                                            Not yet assigned
-                                        </div>
-                                        <div v-else>
-                                            <div style="font-style: italic">{{ row.value}}</div>
-                                        </div>
-                                    </template>
-                                    <template #cell(status)="row">
-                                        <div v-if="row.item.status === 'New'">
-                                            <b-badge class="mr-1 badge" variant="info">NEW</b-badge>
-                                        </div>
-                                        <div v-if="row.item.status === 'Pending'">
-                                            <b-badge class="mr-1 badge" variant="info">PENDING</b-badge>
-                                        </div>
-                                        <div v-if="row.item.status === 'Approved'">
-                                            <b-badge class="mr-1 badge" variant="primary">APPROVED</b-badge>
-                                        </div>
-                                        <div v-if="row.item.status === 'Disapproved'">
-                                            <b-badge class="mr-1 badge" variant="danger">DISAPPROVED</b-badge>
-                                        </div>
-                                        <div v-if="row.item.status === 'In Progress'">
-                                            <b-badge class="mr-1 badge" variant="warning">IN PROGRESS</b-badge>
-                                        </div>
-                                        <div v-if="row.item.status === 'Completed'">
-                                            <b-badge class="mr-1 badge" variant="success">COMPLETED</b-badge>
-                                        </div>
-                                        <div v-if="row.item.status === 'Closed'">
-                                            <b-badge class="mr-1 badge" variant="dark">CLOSED</b-badge>
-                                        </div>
-                                        <div v-if="row.item.status === 'Rescheduled'">
-                                            <b-badge class="mr-1 badge" variant="dark">RESCHEDULED</b-badge>
-                                        </div>
-                                    </template>
-                                    <template #cell(actions)="row">
-                                        <b-button @click="assignTicket(row.item, row.index, $event.target)" size="sm" class="mr-1 jkl-btn-view" style="background-color:#15ca20 !important;">Assign Ticket</b-button>                                       
-                                    </template>
-                                    <template #cell(assign)="">
-                                        <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.assignedStaff" :options="options"></b-form-select>
-                                    </template>
-                                </b-table>
-                            <b-row>
-                                    <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage" align="center" ></b-pagination>
-                            </b-row>
-                    </b-container>
+                                </div>
+                                <div class="col-md-6 col-lg-6 mb-0">
+                                    <b-form-group class="group" id="optionHardware" style="display:none">
+                                        <label for="type" class="label" style="color:black; font-weight: bold">Hardware:<span style="font-style: italic; font-size: 10px; text-transform: none;">  (Please select below... )</span></label>
+                                        <b-form-select :options="drop_hardware" id="supportType_hardware" v-model="ticketData.supportType_hardware"></b-form-select>
+                                    </b-form-group>
+                                    <b-form-group class="group" id="optionSoftware" style="display:none">
+                                        <label for="type" class="label" style="color:black; font-weight: bold">Software:<span style="font-style: italic; font-size: 10px; text-transform: none;">  (Please select below... )</span></label>
+                                        <b-form-select :options="drop_software"  id="supportType_software" v-model="ticketData.supportType_software"></b-form-select>
+                                    </b-form-group>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 mb-0">
+                                    <span style="font-weight: bold"> Assigned Staff:</span>
+                                    <b-form-group class="group">
+                                        <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
+                                        <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.attended_by" :options="options_staff" required></b-form-select>
+                                    </b-form-group>
+                                </div>
+                                <div class="col-md-4 col-lg-4 mb-0">
+                                    <span style="font-weight: bold"> Assisted By:</span>
+                                    <b-form-group class="group">
+                                        <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
+                                        <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.assisted_by_1" :options="drop_assistedBy" required></b-form-select>
+                                    </b-form-group>
+                                </div>
+                                <div class="col-md-4 col-lg-4 mb-0">
+                                    <span style="font-weight: bold"> Assisted By:</span>
+                                    <b-form-group class="group">
+                                        <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
+                                        <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.assisted_by_2" :options="drop_assistedBy" required></b-form-select>
+                                    </b-form-group>
+                                </div>
+                            </div>
+                            <b-form-group class="group" id="form_remarks">
+                                <label for="clientNote" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Describe the problem that needed support: <span style="font-style: italic; font-size: 10px"></span></label>
+                                <b-form-textarea required v-model="ticketData.clientNote" id="clientNote" name="clientNote" placeholder="Type here..." rows="3" max-rows="3" style="background: #fff !important; color: black"></b-form-textarea>
+                            </b-form-group>
+                            <b-form-group class="group" id="groupActions_taken">
+                                <label for="actions_taken" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Describe actions taken:</label>
+                                <b-form-textarea required id="actions_taken"  v-model="ticketData.actions_taken" placeholder="Enter here..." rows="3" max-rows="3" style="background: #fff !important; color: black"></b-form-textarea>
+                            </b-form-group>
+                            <b-form-group class="group" id="groupRemarks">
+                                <label for="remarks" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Remarks:</label>
+                                <b-form-textarea required id="remarks"  v-model="ticketData.remarks" placeholder="Enter here..." rows="3" max-rows="3" style="background: #fff !important; color: black"></b-form-textarea>
+                            </b-form-group>
+                            <b-form-group class="group" id="form_ITURequestType_internal">
+                                <label for="type" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Type:<span style="font-style: italic; font-size: 10px; text-transform: none"></span></label>
+                                <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.type" :options="options_type" required></b-form-select>
+                            </b-form-group>
+                    </div>
+                    <b-form-group class="group">
+                        <b-button id="sub-btn" type="submit" class="sub-btn button" style="color:white; background-color: rgb(20 73 171) !important;">Submit</b-button>
+                    </b-form-group>
+            </form>
         </b-card>
         </div>
     </div>

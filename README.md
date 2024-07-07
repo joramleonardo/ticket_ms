@@ -1,4 +1,4 @@
 ## Ticket Management System
 
-Build with VueJS, Javascript, HTML and CSS.
+VueJS , PHP, JavaScript, HTML and CSS.
 

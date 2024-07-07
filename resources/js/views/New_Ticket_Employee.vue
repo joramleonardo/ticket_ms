@@ -134,199 +134,20 @@
         </b-card>
         </div>
     </div>
-
-    <b-modal id="assignModalForm_internal" ref="assignModalForm_internal" hide-footer title="Assign Staff for this Ticket" size="xl">
-        <div class="">
-            <div class="">
-                <b-form class="login-form" id="login-form" v-on:submit.prevent="assignStaff">
-                                <!-- <div class="sign-in-htm"> -->
-                        <div class="">
-                            <div class="">
-                                <span style="font-weight: bold"> DETAILS </span>
-                                <b-table 
-                                    :items="ticket2"
-                                    :fields="fields_internal"
-                                    :sort-by.sync="sortBy"
-                                    :sort-desc.sync="sortDesc"
-                                    sort-icon-left
-                                    responsive="sm"
-                                    :filter="filterOn"
-                                    :current-page="currentPage"
-                                    :per-page="perPage"
-                                    :filter-included-fields="filterOn">
-                                    <template #cell(reference_code)="row">
-                                        <b>{{ row.value}}</b>
-                                    </template>
-                                    <template #cell(externalName)="row">
-                                        {{ row.value.toUpperCase()}}
-                                    </template>
-                                    <template #cell(internal_external)="row">
-                                        <div v-if="row.item.internal_external === 'Internal'">
-                                            <b-badge class="mr-1 badge" variant="success">Internal</b-badge>
-                                        </div>
-                                        <div v-if="row.item.internal_external === 'External'">
-                                            <b-badge class="mr-1 badge" variant="primary">External</b-badge>
-                                        </div>
-                                    </template>
-                                    <template #cell(supportType)="row">
-                                        <b style="color:rgb(35, 132, 179)">{{ row.value}}</b>
-                                    </template>
-                                </b-table>
-                                    
-                                <span style="font-weight: bold"> PROBLEM THAT NEEDED SUPPORT </span>
-                                <b-table 
-                                    :items="ticket2"
-                                    :fields="fields_moreInfo"
-                                    :sort-by.sync="sortBy"
-                                    :sort-desc.sync="sortDesc"
-                                    sort-icon-left
-                                    responsive="sm"
-                                    :filter="filterOn"
-                                    :current-page="currentPage"
-                                    :per-page="perPage"
-                                    :filter-included-fields="filterOn">
-                                        <template #cell(clientNote)="row">
-                                            <div v-if="row.item.clientNote === ''">
-                                                No remarks.
-                                            </div>
-                                            <div v-else>
-                                                <div style="font-style: italic">{{ row.value}}</div>
-                                            </div>
-                                        </template>
-                                </b-table>
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-6 mb-0">
-                                        <span style="font-weight: bold"> ASSIGN A STAFF </span>
-                                        <b-form-group class="group">
-                                            <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" size="sm" id="assignedStaff" v-model="assignedTicketData.assignedStaff" :options="options_staff" required></b-form-select>
-                                        </b-form-group>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 mb-0">
-                                        <span style="font-weight: bold"> SET PRIORITY LEVEL</span>
-                                        <b-form-group class="group" >
-                                            <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" size="sm" id="priority" v-model="assignedTicketData.priority" :options="options_priority" required> </b-form-select>
-                                        </b-form-group>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <b-form-group class="group" style="margin-top: 50px">
-                            <b-button type="submit" class="tab button" style="background-color: #1161ee !important;" variant="outline-success">Submit</b-button>
-                        </b-form-group>
-                </b-form>
+        <b-modal id="showReferenceCode" no-close-on-backdrop no-close-on-esc hide-header-close ref="showReferenceCode" hide-footer title="Please secure a copy of your Reference Code for follow up.">
+            <div class="d-block text-center">
+            <input type="text" v-model="this.ticketData_update.reference_code" id="myInput" disabled style="color:black; font-weight: bold">
             </div>
-        </div>
-    </b-modal>
-
-    <b-modal id="assignModalForm_external" ref="assignModalForm_external" hide-footer title="Assign Staff for this External Ticket" size="xl">
-        <div class="">
-            <div class="">
-                <b-form class="login-form" id="login-form" v-on:submit.prevent="assignStaff">
-                                <!-- <div class="sign-in-htm"> -->
-                        <div class="">
-                            <div class="">
-                                <span style="font-weight: bold"> DETAILS </span>
-                                <b-table 
-                                    :items="ticket2"
-                                    :fields="fields_external"
-                                    :sort-by.sync="sortBy"
-                                    :sort-desc.sync="sortDesc"
-                                    sort-icon-left
-                                    responsive="sm"
-                                    :filter="filterOn"
-                                    :current-page="currentPage"
-                                    :per-page="perPage"
-                                    :filter-included-fields="filterOn">
-                                        <template #cell(reference_code)="row">
-                                            <b>{{ row.value}}</b>
-                                        </template>
-                                        <template #cell(externalName)="row">
-                                            {{ row.value.toUpperCase()}}
-                                        </template>
-                                        <template #cell(externalAgency)="row">
-                                            {{ row.value.toUpperCase()}}
-                                        </template>
-                                        <template #cell(internal_external)="row">
-                                            <div v-if="row.item.internal_external === 'Internal'">
-                                                <b-badge class="mr-1 badge" variant="success">Internal</b-badge>
-                                            </div>
-                                            <div v-if="row.item.internal_external === 'External'">
-                                                <b-badge class="mr-1 badge" variant="primary">External</b-badge>
-                                            </div>
-                                        </template>
-                                        <template #cell(externalOtherType)="row">
-                                            <div v-if="row.item.externalOtherType === 'undefined'">
-                                                -
-                                            </div>
-                                            <div v-else>
-                                                {{ row.value}}
-                                            </div>
-                                        </template>
-                                        <template #cell(supportType)="row">
-                                            <b style="color:rgb(35, 132, 179)">{{ row.value}}</b>
-                                        </template>
-                                </b-table>
-                                <span style="font-weight: bold"> EVENT DETAILS </span>
-                                <b-table 
-                                    :items="ticket2"
-                                    :fields="fields_external_event"
-                                    :sort-by.sync="sortBy"
-                                    :sort-desc.sync="sortDesc"
-                                    sort-icon-left
-                                    responsive="sm"
-                                    :filter="filterOn"
-                                    :current-page="currentPage"
-                                    :per-page="perPage"
-                                    :filter-included-fields="filterOn">
-                                </b-table>
-                                <span style="font-weight: bold"> REMARKS  <span style="font-style: italic; font-size: 10px">(Venue, other deatils, etc.)</span></span>
-                                <b-table 
-                                    :items="ticket2"
-                                    :fields="fields_moreInfo"
-                                    :sort-by.sync="sortBy"
-                                    :sort-desc.sync="sortDesc"
-                                    sort-icon-left
-                                    responsive="sm"
-                                    :filter="filterOn"
-                                    :current-page="currentPage"
-                                    :per-page="perPage"
-                                    :filter-included-fields="filterOn">
-                                        <template #cell(clientNote)="row">
-                                            <div v-if="row.item.clientNote === ''">
-                                                No remarks.
-                                            </div>
-                                            <div v-else>
-                                                <div style="font-style: italic">{{ row.value}}</div>
-                                            </div>
-                                        </template>
-                                </b-table>
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-6 mb-0">
-                                        <span style="font-weight: bold"> ASSIGN A STAFF </span>
-                                        <b-form-group class="group">
-                                            <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select  size="sm" id="assignedStaff" v-model="assignedTicketData.assignedStaff" :options="options_staff" required></b-form-select>
-                                        </b-form-group>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 mb-0">
-                                        <span style="font-weight: bold"> SET PRIORITY LEVEL</span>
-                                        <b-form-group class="group">
-                                            <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select  size="sm" id="priority" v-model="assignedTicketData.priority" :options="options_priority" required></b-form-select>
-                                        </b-form-group>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <b-form-group class="group" style="margin-top: 50px">
-                            <b-button type="submit" class="tab button" style="background-color: #1161ee !important;" variant="outline-success">Submit</b-button>
-                        </b-form-group>
-                </b-form>
+            <b-button class="mt-3" variant="info" block @click="copyReferenceCode()">Copy</b-button>
+            <b-button class="mt-3" variant="danger" block @click="closeReferenceCode()">Close</b-button>
+        </b-modal>
+        <b-modal id="showErrorModal" no-close-on-backdrop no-close-on-esc hide-header-close ref="showErrorModal" hide-footer title="Employee ID does not exist! Please enter a valid Employee ID">
+            <div class="d-block text-center">
+                <!-- Employee ID does not exist! Please enter a valid Employee ID -->
             </div>
-        </div>
-    </b-modal>
+            <b-button class="mt-3" variant="danger" block @click="okayErrorModal()">Okay</b-button>
+        </b-modal>
+			<FlashMessage></FlashMessage>
   </div>
   
 </template>
@@ -343,238 +164,708 @@
     }
 </style>
 
-<script>
-import * as ticket_service from '../services/ticket_service';
+<script type="text/javascript">
+    import * as ticket_service from '../services/ticket_service';
 
-export default {
-    data() {
-        return {
-            ticket: [],
-            ticket2: [],
-            ticketDetails: [],
-            ticketData:{
-                status:'',
-                reference_code:'',
-                assignedStaff:''
+    export default {
+        data() {
+            return {
+                ref_code:'',
+                ticket: [],
+                ticketData:{
+                    status:'',
+                    reference_code:''
+                },
+                ticketDataStatus:{
+                    employee_code:'',
+                    type:'',
+                    hardware:'',
+                    software:'',
+                    note:'',
+                    reference_code:''
+                },
+                selected: '',
+                ticketData_update:{
+                    reference_code:''
+                },
+                empName: '',
+                empSex: '',
+                empDiv: '',
+                empEmail: '',
+                errors : '',
+                totalRows: 1,
+                currentPage: 1,
+                perPage: 10,
+                filterOn: [],
+                filter: null,
+                sortDirection: 'desc',
+                sortBy: 'id',
+                sortDesc: true,
+                specificRequest: '',
+                options_supportType: [
+                    { value: null, text: 'Please select an option', disabled: true },
+                    { value: 'Technical Support', text: 'Technical Support' },
+                    { value: 'Livestream', text: 'Livestream' },
+                    { value: 'IS', text: 'Information System' },
+                    { value: 'TWG', text: 'Technical Working Group' }
+                ],
+                options_mode: [
+                    { value: null, text: 'Please select an option', disabled: true },
+                    { value: 'Service Form', text: 'Service Form' },
+                    { value: 'Online Mode', text: 'Online Mode' }
+                ],
+                options_type: [
+                    { value: null, text: 'Please select an option', disabled: true },
+                    { value: 'PC Setup & Troubleshooting', text: 'PC Setup & Troubleshooting' },
+                    { value: 'Network related', text: 'Network related' },
+                    { value: 'Printer related', text: 'Printer related' },
+                    { value: 'Zoom related', text: 'Zoom related' },
+                    { value: 'Website related', text: 'Website related' },
+                    { value: 'STARBOOKS related', text: 'STARBOOKS related' },
+                    { value: 'Installation related', text: 'Installation related' },
+                    { value: 'Others', text: 'Others' },
+                ],
+                options_supportType_external: [
+                    { value: null, text: 'Please select an option', disabled: true },
+                    { value: 'Livestream', text: 'Livestream' },
+                    { value: 'Other', text: 'Other..' }
+                ],
+                options_sex: [
+                    { value: null, text: 'Please select an option', disabled: true },
+                    { value: 'Male', text: 'Male' },
+                    { value: 'Female', text: 'Female' },
+                ],
+                fields2: [
+                    { key: 'reference_code', label: 'Reference Code'},
+                    { key: 'name', label: 'Requested By'},
+                    { key: 'type', label: 'Request Type'},
+                    // { key: 'concerned_division', label: 'Concerned Division'},
+                    // { key: 'concerned_section', label: 'Concerned Section'},
+                    { key: 'note', label: 'Concern'},
+                ],
+                fields3: [
+                    { key: 'ticket_created', label: 'Date Submitted'},
+                    { key: 'ticket_approved', label: 'Date Approved'},
+                    { key: 'ticket_approved', label: 'Date Assigned'},
+                    { key: 'ticket_attended', label: 'Date Attended'},
+                    { key: 'ticket_completed', label: 'Date Completed'},
+                ],
+                fields4: [
+                    { key: 'status', label: ''},
+                ],
+                fields5: [
+                    { key: 'approved_by', label: 'Approved By'},
+                    { key: 'assignedStaff', label: 'Assigned To'},
+                    { key: 'assisted_by', label: 'Assisted By'},
+                    { key: 'tech_remarks', label: 'Note'},
+                ],
+                options_staff: [
+                    { value: null, text: 'Please select staff', disabled: true},
+                    { value: 'Lloyd Mandapat', text: 'Lloyd Mandapat' },
+                    { value: 'Reiner Zagada', text: 'Reiner Zagada' },
+                    { value: 'Michael Binondo', text: 'Michael Binondo' },
+                    { value: 'Mark Jayson Sison', text: 'Mark Jayson Sison' },
+                    { value: 'Chester Francisco', text: 'Chester Francisco' },
+                    { value: 'Joram Kate Leonardo', text: 'Joram Kate Leonardo' },
+                    { value: 'Etienne Wayne Amparado', text: 'Etienne Wayne Amparado' },
+                    { value: 'Mc Gyver Basaya', text: 'Mc Gyver Basaya' },
+                    { value: 'Jomar Rabanera', text: 'Jomar Rabanera' },
+                ],
+                options_priority: [
+                    { value: null, text: 'Please select priority level', disabled: true},
+                    { value: 'Low', text: 'Low' },
+                    { value: 'Medium', text: 'Medium' },
+                    { value: 'Urgent', text: 'Urgent' },
+                ],
+                drop_assistedBy: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'None', 
+                                                                            'Lloyd Mandapat', 
+                                                                            'Reiner Zagada', 
+                                                                            'Michael Binondo', 
+                                                                            'Mark Jayson Sison', 
+                                                                            'Chester Francisco', 
+                                                                            'Joram Kate Leonardo', 
+                                                                            'Etienne Wayne Amparado', 
+                                                                            'Mc Gyver Basaya', 
+                                                                            'Jomar Rabanera'],
+                drop_assistedBy_sb: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'None', 
+                                                                            'Jomar Rabanera'],
+                drop_hardware: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'Troubleshooting', 
+                                                                            'Evaluation', 
+                                                                            'Network', 
+                                                                            'Testing', 
+                                                                            'Consultation', 
+                                                                            'Assistance',
+                                                                            'None'],
+                drop_software: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'Installation', 
+                                                                            'Data Retrieval', 
+                                                                            'Virus/Malwares', 
+                                                                            'Data Conversion/Uploading/Processing', 
+                                                                            'Reformat', 
+                                                                            'Download', 
+                                                                            'Assistance' ,
+                                                                            'None'],
+                drop_software_sb: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'Installation', 
+                                                                            'Assistance',
+                                                                            'None'],
+            }
+        },
+        mounted() {
+        },
+        computed:{
+        },
+        methods: {
+            switchSelect_Division(event) {
+                this.selected = event.target.value;
+                if(this.selected == "Software"){ 
+                    document.getElementById("optionSoftware").style.display = "block"; 
+                    document.getElementById("optionHardware").style.display = "none"; 
+                    document.getElementById("optionAssistedBy").style.display = "block"; 
+                    document.getElementById("groupProblem_that_needed_support").style.display = "block"; 
+                    document.getElementById("groupActions_taken").style.display = "block"; 
+                    document.getElementById("groupRemarks").style.display = "block"; 
+                }
+                else if(this.selected == "Hardware"){ 
+                    document.getElementById("optionSoftware").style.display = "none"; 
+                    document.getElementById("optionHardware").style.display = "block"; 
+                    document.getElementById("optionAssistedBy").style.display = "block"; 
+                    document.getElementById("groupProblem_that_needed_support").style.display = "block"; 
+                    document.getElementById("groupActions_taken").style.display = "block"; 
+                    document.getElementById("groupRemarks").style.display = "block"; 
+                }
+                else if(this.selected == "Hardware and Software"){ 
+                    document.getElementById("optionSoftware").style.display = "block"; 
+                    document.getElementById("optionHardware").style.display = "block"; 
+                    document.getElementById("optionAssistedBy").style.display = "block"; 
+                    document.getElementById("groupProblem_that_needed_support").style.display = "block"; 
+                    document.getElementById("groupActions_taken").style.display = "block"; 
+                    document.getElementById("groupRemarks").style.display = "block"; 
+                }
+                else if(this.selected == "NA"){ 
+                    document.getElementById("optionSoftware").style.display = "none"; 
+                    document.getElementById("optionHardware").style.display = "none"; 
+                    document.getElementById("optionAssistedBy").style.display = "block"; 
+                    document.getElementById("groupProblem_that_needed_support").style.display = "block"; 
+                    document.getElementById("groupActions_taken").style.display = "block"; 
+                    document.getElementById("groupRemarks").style.display = "block"; 
+                }
+                else if(this.selected == "System update / development"){ 
+                    document.getElementById("optionSoftware").style.display = "none"; 
+                    document.getElementById("optionHardware").style.display = "none"; 
+                    document.getElementById("optionAssistedBy").style.display = "block"; 
+                    document.getElementById("groupProblem_that_needed_support").style.display = "block"; 
+                    document.getElementById("groupActions_taken").style.display = "block"; 
+                    document.getElementById("groupRemarks").style.display = "block"; 
+                }
             },
-            assignedTicketData:{},
-
-            errors : '',
-            infoModal: {
-                id: 'info-modal',
-                title: '',
-                content: ''
+            switchSelect_ITURequestType(event) {
+                this.selected = event.target.value;
+                if(this.selected == "Other"){ 
+                    document.getElementById("form_RequestTypeOther").style.display = "block"; 
+                } 
+                else if(this.selected == "Livestream"){ 
+                    document.getElementById("form_RequestTypeOther").style.display = "none"; 
+                }
+                else if(this.selected == "Technical Support"){ 
+                    document.getElementById("form_RequestTypeOther").style.display = "none"; 
+                }
+                else if(this.selected == "Information System"){ 
+                    document.getElementById("form_RequestTypeOther").style.display = "none"; 
+                }
+                else if(this.selected == "TWG"){ 
+                    document.getElementById("form_RequestTypeOther").style.display = "none"; 
+                }
             },
-            pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
-            totalRows: 0,
-            currentPage: 20,
-            perPage: 10,
-            filterOn: [],
-            filter: null,
-            sortDirection: 'desc',
-            sortBy: 'id',
-            sortDesc: true,
-            fields_PENDING: [
-                { key: 'reference_code', label: 'Reference Code'},
-                { key: 'ticket_created', label: 'Date Requested'},
-                { key: 'externalName', label: 'Client Name'},
-                { key: 'internal_external', label: 'Client Type'},
-                { key: 'supportType', label: 'Support Type'},
-               
-                { key: 'status', label: 'Status'},
-                { key: 'actions', label: 'Action' }
-            ],
-            fields_internal: [
-                { key: 'reference_code', label: 'Reference Code'},
-                { key: 'ticket_created', label: 'Date Submitted'},
-                { key: 'externalName', label: 'Client Name'},
-                { key: 'division_id', label: 'Division'},
-                { key: 'internal_external', label: 'Client Type'},
-                { key: 'supportType', label: 'Support Type'},
-            ],
-            fields_external: [
-                { key: 'reference_code', label: 'Reference Code'},
-                { key: 'ticket_created', label: 'Date Submitted'},
-                { key: 'externalName', label: 'Client Name'},
-                { key: 'externalAgency', label: 'Agency'},
-                { key: 'internal_external', label: 'Client Type'},
-                { key: 'supportType', label: 'Support Type'},
-                { key: 'externalOtherType', label: 'Specific Support Type'},
-            ],
-            fields_external_event: [
-                { key: 'externalEventTitle', label: 'Event Title'},
-                { key: 'externalStartDate', label: 'Start Date'},
-                { key: 'externalEndDate', label: 'End Date'},
-            ],
-            fields_moreInfo: [
-                { key: 'clientNote', label: ''},
-            ],
-            selected: null,
-            options_staff: [
-                { value: null, text: 'Please select staff', disabled: true},
-                { value: 'Lloyd Mandapat', text: 'Lloyd Mandapat' },
-                { value: 'Reiner Zagada', text: 'Reiner Zagada' },
-                { value: 'Michael Binondo', text: 'Michael Binondo' },
-                { value: 'Mark Jayson Sison', text: 'Mark Jayson Sison' },
-                { value: 'Chester Francisco', text: 'Chester Francisco' },
-                { value: 'Joram Kate Leonardo', text: 'Joram Kate Leonardo' },
-                { value: 'Etienne Wayne Amparado', text: 'Etienne Wayne Amparado' },
-                { value: 'Mc Gyver Basaya', text: 'Mc Gyver Basaya' },
-                { value: 'Jomar Rabanera', text: 'Jomar Rabanera' },
-            ],
-            options_priority: [
-                { value: null, text: 'Please select priority level', disabled: true},
-                { value: 'Low', text: 'Low' },
-                { value: 'Medium', text: 'Medium' },
-                { value: 'Urgent', text: 'Urgent' },
-            ]
-            }
-    },
-    mounted() {
-        this.loadAllTicketDetails();
-    },
-    computed: {
-      sortOptions() {
-        // Create an options list from our fields
-        return this.fields
-          .filter(f => f.sortable)
-          .map(f => {
-            return { text: f.label, value: f.key }
-          })
-      }
-    },
-    methods: {
-        
-        viewTicketDetails: async function(data) {
-            this.assignedTicketData = {...data}
-            try{
-                const response = await ticket_service.loadTicketDetails(this.assignedTicketData.id);
-                this.ticketDetails = response.data;
-            }
-            catch (error){
+            createTicket: async function() {
+                const date = new Date(this.ticketData.entryDate);
+                const months = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex = date.getMonth()
+                const monthName = months[monthIndex]
+                let currentDay= String(date.getDate()).padStart(2, '0');
+                let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+                let currentYear = date.getFullYear();
+                let time = date.getHours() + "" + date.getMinutes() + "" + date.getSeconds();
+                let date_ticketCreated = monthName + " " + currentDay + " " + currentYear;
+                let getHours = date.getHours();
+                let getMinutes = date.getMinutes();
+                let newformat = getHours >= 12 ? 'PM' : 'AM';
+                getHours = getHours % 12;
+                getHours = getHours ? getHours : 12;
+                getMinutes = getMinutes < 10 ? '0' + getMinutes : getMinutes;
 
-            }
-            this.$refs['showDetails'].show();
-        },
-        loadAllTicketDetails: async function() {
-            try{
-                const response = await ticket_service.loadTicketDetails_New();
-              
-                this.ticket = response.data;
-                this.totalRows = this.ticket.length;
-            } catch(error) {
-                this.flashMessage.error({
-                message: 'Some error occured! Please try again.',
-                time: 5000
-                });
-            }
-        },
-        loadTicketDetails: async function(data) {
-            var ticket_data = {...data}
-            
+                const date_created = new Date(this.ticketData.ticket_created);
+                const months2 = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex2 = date_created.getMonth()
+                const monthName2 = months2[monthIndex2]
+                let currentDay2 = String(date_created.getDate()).padStart(2, '0');
+                let currentMonth2 = String(date_created.getMonth()+1).padStart(2,"0");
+                let currentYear2 = date_created.getFullYear();
+                let time2 = date_created.getHours() + "" + date_created.getMinutes() + "" + date_created.getSeconds();
+                let date_ticketCreated2 = monthName2 + " " + currentDay2 + " " + currentYear2;
+                let getHours2 = date_created.getHours();
+                let getMinutes2 = date_created.getMinutes();
+                let newformat2 = getHours2 >= 12 ? 'PM' : 'AM';
+                getHours2 = getHours2 % 12;
+                getHours2 = getHours2 ? getHours2 : 12;
+                getMinutes2 = getMinutes2 < 10 ? '0' + getMinutes2 : getMinutes2;
+                let date_ticketCreatedComplete2 = monthName2 + " " + currentDay2 + " " + currentYear2 + " " + getHours2 + ":" + getMinutes2 + " " + newformat2;
+                
+                const date_completed = new Date(this.ticketData.ticket_completed);
+                const months3 = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex3 = date_completed.getMonth()
+                const monthName3 = months3[monthIndex3]
+                let currentDay3 = String(date_completed.getDate()).padStart(2, '0');
+                let currentMonth3 = String(date_completed.getMonth()+1).padStart(2,"0");
+                let currentYear3 = date_completed.getFullYear();
+                let time3 = date_completed.getHours() + "" + date_completed.getMinutes() + "" + date_completed.getSeconds();
+                let date_ticketCreated3 = monthName3 + " " + currentDay3 + " " + currentYear3;
+                let getHours3 = date_completed.getHours();
+                let getMinutes3 = date_completed.getMinutes();
+                let newformat3 = getHours3 >= 12 ? 'PM' : 'AM';
+                getHours3 = getHours3 % 12;
+                getHours3 = getHours3 ? getHours3 : 12;
+                getMinutes3 = getMinutes3 < 10 ? '0' + getMinutes3 : getMinutes3;
+                let date_ticketCreatedComplete3 = monthName3 + " " + currentDay3 + " " + currentYear3 + " " + getHours3 + ":" + getMinutes3 + " " + newformat3;
 
-            try{
-                const response = await ticket_service.loadTicketDetails(ticket_data.id);
-                this.ticket2 = response.data;
-            }
-            catch (error){
-
-            }
-        },
-        assignTicket: async function(data) {
-            this.assignedTicketData = {...data}
-            let govTypeId = this.assignedTicketData.internal_external;
-
-            if (govTypeId == "Internal"){
-                try{
-                    const response = await ticket_service.loadTicketDetails(this.assignedTicketData.id);
-                    this.ticket2 = response.data;
+                const countEntry_data = await ticket_service.countEntry(date_ticketCreated);
+                let totalEntry = countEntry_data.data;
+                let new_totalEntry = totalEntry + 1;
+                
+                if (new_totalEntry < 10){
+                    this.ref_code = currentYear + currentMonth + currentDay + "-" + "00" + new_totalEntry;
+                } else if (new_totalEntry >= 10){
+                    this.ref_code = currentYear + currentMonth + currentDay + "-" + "0" + new_totalEntry;
                 }
-                catch (error){
 
+                const empID = await ticket_service.validateEmpID(this.ticketData.employee_code);
+                let _govType = empID.data;
+
+                if (_govType == 1){ // 1 if STII Employee
+                    try {
+                        const empID_1 = await ticket_service.getEmpDetails(this.ticketData.employee_code);
+                        this.ticketDetails = empID_1.data[0];
+                        this.empName = this.ticketDetails.fname + " " + this.ticketDetails.lname ;
+                        this.empSex = this.ticketDetails.sex
+                        this.empEmail = this.ticketDetails.email
+                        let div_id = this.ticketDetails.division_id;
+                        if (div_id == "1"){
+                            this.empDiv = "FAD";
+                        } else if (div_id == "2"){
+                            this.empDiv = "IRAD";
+                        } else if (div_id == "3"){
+                            this.empDiv = "CRPD";
+                        }else if (div_id == "4"){
+                            this.empDiv = "OD-MISPS";
+                        }
+
+                        if (this.empEmail === ""){
+                            this.empEmail = "-"
+                            console.log("No Email");
+                        } else if (this.empEmail != ""){
+                            this.empEmail = this.empEmail
+                            console.log(this.empEmail);
+                        } 
+
+                        let formData_ticketData = new FormData();
+                        formData_ticketData.append('reference_code', this.ref_code);
+                        formData_ticketData.append('ticket_created', date_ticketCreatedComplete2);
+                        formData_ticketData.append('employee_code', this.ticketData.employee_code);
+                        formData_ticketData.append('sex', this.empSex);
+                        formData_ticketData.append('internal_external', "Internal");
+                        formData_ticketData.append('concerned_division', "OD-MISPS");
+                        formData_ticketData.append('concerned_section', "ITU");
+                        formData_ticketData.append('externalName', this.empName);
+                        formData_ticketData.append('empDiv', this.empDiv);
+                        formData_ticketData.append('empEmail', this.empEmail);
+                        formData_ticketData.append('clientType', "Government");
+                        formData_ticketData.append('date1', date_ticketCreatedComplete2);
+                        formData_ticketData.append('clientNote', this.ticketData.clientNote);
+                        formData_ticketData.append('supportType', this.ticketData.supportType);
+                        formData_ticketData.append('mode', "Service Form");
+
+                        this.ticketData_update.reference_code = this.ref_code;
+
+                        let formData_ticketDataStatus = new FormData();
+                        formData_ticketDataStatus.append('reference_code', this.ref_code);
+                        formData_ticketDataStatus.append('status', 'Completed');
+                        formData_ticketDataStatus.append('entry_date', date_ticketCreated);
+                        formData_ticketDataStatus.append('assignedStaff', this.ticketData.attended_by);
+                        formData_ticketDataStatus.append('approved_by', "Lloyd Mandapat");
+                        formData_ticketDataStatus.append('attended_by', this.ticketData.attended_by);
+                        formData_ticketDataStatus.append('priority', "Low");
+                        formData_ticketDataStatus.append('ticket_approved', date_ticketCreatedComplete3);
+                        formData_ticketDataStatus.append('ticket_attended', date_ticketCreatedComplete3);
+                        formData_ticketDataStatus.append('problem_that_needed_support', this.ticketData.clientNote);
+                        formData_ticketDataStatus.append('actions_taken', this.ticketData.actions_taken);
+                        formData_ticketDataStatus.append('remarks', this.ticketData.remarks);
+                        formData_ticketDataStatus.append('feedback_status', "Pending");
+                        formData_ticketDataStatus.append('rating_status', "Pending");
+                        formData_ticketDataStatus.append('date2', date_ticketCreatedComplete3); //date requested
+                        formData_ticketDataStatus.append('natureOfSupport', this.ticketData.natureOfSupport);
+                        formData_ticketDataStatus.append('hardware', this.ticketData.supportType_hardware);
+                        formData_ticketDataStatus.append('software', this.ticketData.supportType_software);
+                        formData_ticketDataStatus.append('supportType_', this.ticketData.supportType);
+                        formData_ticketDataStatus.append('mode_', "Service Form");
+                        formData_ticketDataStatus.append('assisted_by_1', this.ticketData.assisted_by_1);
+                        formData_ticketDataStatus.append('assisted_by_2', this.ticketData.assisted_by_2);
+                        formData_ticketDataStatus.append('clientNote_', this.ticketData.clientNote);
+                        formData_ticketDataStatus.append('type', this.ticketData.type);
+                        formData_ticketDataStatus.append('ticket_completed', date_ticketCreatedComplete3);
+
+                        const response_ticketData = await ticket_service.technical_addTicket_internal(formData_ticketData);
+                        const response_ticketDataStatus = await ticket_service.technical_addTicketStatus_Pending(formData_ticketDataStatus);
+                    }
+                    catch (error) {
+                        this.flashMessage.warning({
+                            message: 'Please fill out the form!'
+                        });
+                        console.log("Please fill out the form!");
+                    }
+
+                    // this.$refs.requestModalForm_internal.hide()
+                    this.$refs.showReferenceCode.show() 
+                    
+                    this.flashMessage.success({
+                        message: 'Ticket Submitted Successfully!'
+                    });
+                    console.log("Ticket Submitted Successfully!");
                 }
-                this.$refs['assignModalForm_internal'].show();
-
-            } else if (govTypeId == "External"){
-                try{
-                    const response = await ticket_service.loadTicketDetails_external(this.assignedTicketData.id);
-                    this.ticket2 = response.data;
+                else if (_govType == 0){ // 0 employee id not found; not STII employee
+                    this.flashMessage.warning({
+                        message: 'Employee ID does not exist! Please enter a valid Employee ID'
+                    });
+                    console.log("Employee ID does not exist! Please enter a valid Employee ID");
+                    
+                    this.$refs.showErrorModal.show() 
+                        
                 }
-                catch (error){
+            },
+            createTicket_external: async function() {
 
+                let specificRequest = document.getElementById("externalOtherType").value;
+                if (specificRequest === ""){
+                    this.specificRequest = "None";
                 }
-                this.$refs['assignModalForm_external'].show();
-            }
+                else if (specificRequest != ""){
+                    this.specificRequest = specificRequest;
+                }
+                let _comment = this.specificRequest;
+                const date = new Date(this.ticketData.entryDate);
+                const months = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex = date.getMonth()
+                const monthName = months[monthIndex]
+                let currentDay= String(date.getDate()).padStart(2, '0');
+                let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+                let currentYear = date.getFullYear();
+                let time = date.getHours() + "" + date.getMinutes() + "" + date.getSeconds();
+                let date_ticketCreated = monthName + " " + currentDay + " " + currentYear;
+                let getHours = date.getHours();
+                let getMinutes = date.getMinutes();
+                let newformat = getHours >= 12 ? 'PM' : 'AM';
+                getHours = getHours % 12;
+                getHours = getHours ? getHours : 12;
+                getMinutes = getMinutes < 10 ? '0' + getMinutes : getMinutes;
 
-        },
-        assignStaff: async function(){
-            const date = new Date();
-			const months = [
-				'January',
-				'February',
-				'March',
-				'April',
-				'May',
-				'June',
-				'July',
-				'August',
-				'September',
-				'October',
-				'November',
-				'December'
-				];
-			const monthIndex = date.getMonth()
-			const monthName = months[monthIndex]
-			let currentDay= String(date.getDate()).padStart(2, '0');
-			let currentYear = date.getFullYear();
-            let getHours = date.getHours();
-            let getMinutes = date.getMinutes();
-            let getSeconds = date.getSeconds();
-            // Check whether AM or PM
-            let newformat = getHours >= 12 ? 'PM' : 'AM';
-            // Find current hour in AM-PM Format
-            getHours = getHours % 12;
-            // To display "0" as "12"
-            getHours = getHours ? getHours : 12;
-            getMinutes = getMinutes < 10 ? '0' + getMinutes : getMinutes;
-			let date_ticketCreatedComplete = monthName + " " + currentDay + " " + currentYear + " " + getHours + ":" + getMinutes + " " + newformat;
+                const date_created = new Date(this.ticketData.entryDate);
+                const months2 = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex2 = date_created.getMonth()
+                const monthName2 = months2[monthIndex2]
+                let currentDay2 = String(date_created.getDate()).padStart(2, '0');
+                let currentMonth2 = String(date_created.getMonth()+1).padStart(2,"0");
+                let currentYear2 = date_created.getFullYear();
+                let time2 = date_created.getHours() + "" + date_created.getMinutes() + "" + date_created.getSeconds();
+                let date_ticketCreated2 = monthName2 + " " + currentDay2 + " " + currentYear2;
+                let getHours2 = date_created.getHours();
+                let getMinutes2 = date_created.getMinutes();
+                let newformat2 = getHours2 >= 12 ? 'PM' : 'AM';
+                getHours2 = getHours2 % 12;
+                getHours2 = getHours2 ? getHours2 : 12;
+                getMinutes2 = getMinutes2 < 10 ? '0' + getMinutes2 : getMinutes2;
+                let date_ticketCreatedComplete2 = monthName2 + " " + currentDay2 + " " + currentYear2 + " " + getHours2 + ":" + getMinutes2 + " " + newformat2;
+                
+                const date_completed = new Date(this.ticketData.externalEndDate);
+                const months3 = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex3 = date_completed.getMonth()
+                const monthName3 = months3[monthIndex3]
+                let currentDay3 = String(date_completed.getDate()).padStart(2, '0');
+                let currentMonth3 = String(date_completed.getMonth()+1).padStart(2,"0");
+                let currentYear3 = date_completed.getFullYear();
+                let time3 = date_completed.getHours() + "" + date_completed.getMinutes() + "" + date_completed.getSeconds();
+                let date_ticketCreated3 = monthName3 + " " + currentDay3 + " " + currentYear3;
+                let getHours3 = date_completed.getHours();
+                let getMinutes3 = date_completed.getMinutes();
+                let newformat3 = getHours3 >= 12 ? 'PM' : 'AM';
+                getHours3 = getHours3 % 12;
+                getHours3 = getHours3 ? getHours3 : 12;
+                getMinutes3 = getMinutes3 < 10 ? '0' + getMinutes3 : getMinutes3;
+                let date_ticketCreatedComplete3 = monthName3 + " " + currentDay3 + " " + currentYear3 + " " + getHours3 + ":" + getMinutes3 + " " + newformat3;
 
-            const response_getUserData = await ticket_service.getUserData();
-            this.displayName=response_getUserData.data.user.name;
+                const countEntry_data = await ticket_service.countEntry(date_ticketCreated);
+                let totalEntry = countEntry_data.data;
+                let new_totalEntry = totalEntry + 1;
+                
+                if (new_totalEntry < 10){
+                    this.ref_code = currentYear + currentMonth + currentDay + "-" + "00" + new_totalEntry;
+                } else if (new_totalEntry >= 10){
+                    this.ref_code = currentYear + currentMonth + currentDay + "-" + "0" + new_totalEntry;
+                }
 
-            try {
-
-                let formData = new FormData();
-                formData.append('reference_code', this.assignedTicketData.reference_code);
-                formData.append('approved_by', this.displayName);
-                formData.append('assignedStaff', this.assignedTicketData.assignedStaff);
-                formData.append('priority', this.assignedTicketData.priority);
-                formData.append('ticket_approved', date_ticketCreatedComplete);
-                formData.append('ticket_updated', date_ticketCreatedComplete);
-
-                formData.append('status', 'Approved');
-
-                const response = await ticket_service.updatePending(this.assignedTicketData.id, formData);
+                // let finalName = this.ticketData.fName + " " + this.ticketData.mName + " " + this.ticketData.lName;
+                let finalName = this.ticketData.fName + " " + this.ticketData.lName;
                 
 
-            } catch (error) {
-                this.flashMessage.warning({
-					message: 'Please fill out the form!'
-				});
-            }
-            this.loadAllTicketDetails();
-            this.flashMessage.success({
-					message: 'Ticket Assigned Successfully!'
-				});
-            this.$refs['assignModalForm_internal'].hide();
-            this.$refs['assignModalForm_external'].hide();
-            // window.location.reload();
-        },
-        loadEmployeeHealthAndTraining: async function(data) {
-            this.$refs['showDetails'].show();
-            
-        },
-    }
-}
+                try {
+                    let formData_ticketData = new FormData();
+                    formData_ticketData.append('date1', date_ticketCreatedComplete2);
+                    formData_ticketData.append('externalName', finalName);
+                    formData_ticketData.append('externalAgency', this.ticketData.externalAgency);
+                    formData_ticketData.append('sex', this.ticketData.sex);
+                    formData_ticketData.append('externalStartDate', this.ticketData.externalStartDate);
+                    formData_ticketData.append('externalEndDate', this.ticketData.externalEndDate);
+                    formData_ticketData.append('externalEventTitle', this.ticketData.externalEventTitle);
+                    formData_ticketData.append('supportType', this.ticketData.supportType);
+                    formData_ticketData.append('externalOtherType', _comment);
+                    formData_ticketData.append('clientNote', this.ticketData.clientNote);
+                    formData_ticketData.append('reference_code', this.ref_code);
+                    formData_ticketData.append('ticket_created', date_ticketCreatedComplete2);
+                    formData_ticketData.append('internal_external', "External");
+                    formData_ticketData.append('mode', "Online Form");
+                    formData_ticketData.append('clientType', "Government");
 
+                    this.ticketData_update.reference_code = this.ref_code;
+                    let formData_ticketDataStatus = new FormData();
+
+                    formData_ticketDataStatus.append('reference_code', this.ref_code);
+                    formData_ticketDataStatus.append('status', 'Completed');
+                    formData_ticketDataStatus.append('entry_date', date_ticketCreated);
+                    
+
+                    formData_ticketDataStatus.append('assignedStaff', this.ticketData.attended_by);
+                    formData_ticketDataStatus.append('approved_by', "Lloyd Mandapat");
+                    formData_ticketDataStatus.append('attended_by', this.ticketData.attended_by);
+                    formData_ticketDataStatus.append('priority', "Low");
+                    formData_ticketDataStatus.append('ticket_approved', date_ticketCreatedComplete3);
+                    formData_ticketDataStatus.append('ticket_attended', date_ticketCreatedComplete3);
+                    formData_ticketDataStatus.append('problem_that_needed_support', this.ticketData.clientNote);
+                    formData_ticketDataStatus.append('actions_taken', this.ticketData.actions_taken);
+                    formData_ticketDataStatus.append('remarks', this.ticketData.remarks);
+                    formData_ticketDataStatus.append('feedback_status', "Pending");
+                    formData_ticketDataStatus.append('rating_status', "Pending");
+                    formData_ticketDataStatus.append('date2', date_ticketCreatedComplete3); //date requested
+                    formData_ticketDataStatus.append('supportType_', this.ticketData.supportType);
+                    formData_ticketDataStatus.append('mode_', "Online Form");
+                    formData_ticketDataStatus.append('assisted_by_1', this.ticketData.assisted_by_1);
+                    formData_ticketDataStatus.append('assisted_by_2', this.ticketData.assisted_by_2);
+                    formData_ticketDataStatus.append('clientNote_', this.ticketData.clientNote);
+                    formData_ticketDataStatus.append('type', this.ticketData.type);
+                    formData_ticketDataStatus.append('ticket_completed', date_ticketCreatedComplete3);
+
+
+
+                    const response_ticketData = await ticket_service.technical_addTicket_external(formData_ticketData);
+                    const response_ticketDataStatus = await ticket_service.technical_addTicketStatus_Pending_external(formData_ticketDataStatus);
+
+                    document.getElementById("form_RequestTypeOther").style.display = "none"; 
+
+                } catch (error) {
+                    this.flashMessage.warning({
+                        message: 'Please fill out the form!'
+                    });
+                    console.log("Please fill out the form!");
+                }
+                // this.$refs.requestModalForm_external.hide()
+                this.$refs.showReferenceCode.show() 
+            
+                        
+                // document.getElementById("form_RequestTypeOther").style.display = "none"; 
+
+                this.flashMessage.success({
+                        message: 'Ticket Submitted Successfully!'
+                });
+                console.log("Ticket Submitted Successfully!");
+            },
+            createTicket_starbooks: async function() {
+                const date = new Date(this.ticketData.entryDate);
+                const months = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex = date.getMonth()
+                const monthName = months[monthIndex]
+                let currentDay= String(date.getDate()).padStart(2, '0');
+                let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+                let currentYear = date.getFullYear();
+                let time = date.getHours() + "" + date.getMinutes() + "" + date.getSeconds();
+                let date_ticketCreated = monthName + " " + currentDay + " " + currentYear;
+                let getHours = date.getHours();
+                let getMinutes = date.getMinutes();
+                let newformat = getHours >= 12 ? 'PM' : 'AM';
+                getHours = getHours % 12;
+                getHours = getHours ? getHours : 12;
+                getMinutes = getMinutes < 10 ? '0' + getMinutes : getMinutes;
+
+                const date_created = new Date(this.ticketData.entryDate);
+                const months2 = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex2 = date_created.getMonth()
+                const monthName2 = months2[monthIndex2]
+                let currentDay2 = String(date_created.getDate()).padStart(2, '0');
+                let currentMonth2 = String(date_created.getMonth()+1).padStart(2,"0");
+                let currentYear2 = date_created.getFullYear();
+                let time2 = date_created.getHours() + "" + date_created.getMinutes() + "" + date_created.getSeconds();
+                let date_ticketCreated2 = monthName2 + " " + currentDay2 + " " + currentYear2;
+                let getHours2 = date_created.getHours();
+                let getMinutes2 = date_created.getMinutes();
+                let newformat2 = getHours2 >= 12 ? 'PM' : 'AM';
+                getHours2 = getHours2 % 12;
+                getHours2 = getHours2 ? getHours2 : 12;
+                getMinutes2 = getMinutes2 < 10 ? '0' + getMinutes2 : getMinutes2;
+                let date_ticketCreatedComplete2 = monthName2 + " " + currentDay2 + " " + currentYear2 + " " + getHours2 + ":" + getMinutes2 + " " + newformat2;
+                
+                const date_completed = new Date(this.ticketData.ticket_completed);
+                const months3 = ['January','February','March','April','May','June',
+                                'July','August','September','October','November','December'];
+                const monthIndex3 = date_completed.getMonth()
+                const monthName3 = months3[monthIndex3]
+                let currentDay3 = String(date_completed.getDate()).padStart(2, '0');
+                let currentMonth3 = String(date_completed.getMonth()+1).padStart(2,"0");
+                let currentYear3 = date_completed.getFullYear();
+                let time3 = date_completed.getHours() + "" + date_completed.getMinutes() + "" + date_completed.getSeconds();
+                let date_ticketCreated3 = monthName3 + " " + currentDay3 + " " + currentYear3;
+                let getHours3 = date_completed.getHours();
+                let getMinutes3 = date_completed.getMinutes();
+                let newformat3 = getHours3 >= 12 ? 'PM' : 'AM';
+                getHours3 = getHours3 % 12;
+                getHours3 = getHours3 ? getHours3 : 12;
+                getMinutes3 = getMinutes3 < 10 ? '0' + getMinutes3 : getMinutes3;
+                let date_ticketCreatedComplete3 = monthName3 + " " + currentDay3 + " " + currentYear3 + " " + getHours3 + ":" + getMinutes3 + " " + newformat3;
+
+                const countEntry_data = await ticket_service.countEntry(date_ticketCreated);
+                let totalEntry = countEntry_data.data;
+                let new_totalEntry = totalEntry + 1;
+                
+                if (new_totalEntry < 10){
+                    this.ref_code = currentYear + currentMonth + currentDay + "-" + "00" + new_totalEntry;
+                } else if (new_totalEntry >= 10){
+                    this.ref_code = currentYear + currentMonth + currentDay + "-" + "0" + new_totalEntry;
+                }
+
+                    try {
+                        let formData_ticketData = new FormData();
+                        formData_ticketData.append('reference_code', this.ref_code);
+                        formData_ticketData.append('ticket_created', date_ticketCreatedComplete2);
+                        formData_ticketData.append('sex', this.ticketData.sex);
+                        formData_ticketData.append('internal_external', "External");
+                        formData_ticketData.append('externalName', this.ticketData.fName + " " + this.ticketData.lName);
+                        formData_ticketData.append('empEmail', this.ticketData.email);
+                        formData_ticketData.append('externalAgency', this.ticketData.externalAgency);
+                        formData_ticketData.append('date1', date_ticketCreatedComplete2);
+                        formData_ticketData.append('clientNote', this.ticketData.clientNote);
+                        formData_ticketData.append('supportType', "Technical Support");
+                        formData_ticketData.append('mode', "Online Remote");
+
+                        this.ticketData_update.reference_code = this.ref_code;
+
+                        let formData_ticketDataStatus = new FormData();
+                        formData_ticketDataStatus.append('reference_code', this.ref_code);
+                        formData_ticketDataStatus.append('status', 'Completed');
+                        formData_ticketDataStatus.append('entry_date', date_ticketCreated);
+                        formData_ticketDataStatus.append('assignedStaff', "Mc Gyver Basaya");
+                        formData_ticketDataStatus.append('approved_by', "Mc Gyver Basaya");
+                        formData_ticketDataStatus.append('attended_by', "Mc Gyver Basaya");
+                        formData_ticketDataStatus.append('priority', "Low");
+                        formData_ticketDataStatus.append('ticket_approved', date_ticketCreatedComplete2);
+                        formData_ticketDataStatus.append('ticket_attended', date_ticketCreatedComplete2);
+                        formData_ticketDataStatus.append('problem_that_needed_support', this.ticketData.clientNote);
+                        formData_ticketDataStatus.append('actions_taken', this.ticketData.actions_taken);
+                        formData_ticketDataStatus.append('remarks', "-");
+                        formData_ticketDataStatus.append('feedback_status', "Pending");
+                        formData_ticketDataStatus.append('rating_status', "Pending");
+                        formData_ticketDataStatus.append('date2', date_ticketCreatedComplete2); //date requested
+                        formData_ticketDataStatus.append('natureOfSupport', "Software");
+                        formData_ticketDataStatus.append('hardware', "-");
+                        formData_ticketDataStatus.append('software', this.ticketData.softwareType);
+                        formData_ticketDataStatus.append('supportType_', "Technical Support");
+                        formData_ticketDataStatus.append('mode_', "Online Remote");
+                        formData_ticketDataStatus.append('assisted_by_1', this.ticketData.assisted_by_1);
+                        formData_ticketDataStatus.append('assisted_by_2', "None");
+                        formData_ticketDataStatus.append('clientNote_', this.ticketData.clientNote);
+                        formData_ticketDataStatus.append('type', "Starbooks related");
+                        formData_ticketDataStatus.append('ticket_completed', date_ticketCreatedComplete2);
+
+                        const response_ticketData = await ticket_service.technical_addTicket_starbooks(formData_ticketData);
+                        const response_ticketDataStatus = await ticket_service.technical_addTicketStatus_starbooks(formData_ticketDataStatus);
+                    }
+                    catch (error) {
+                        this.flashMessage.warning({
+                            message: 'Please fill out the form!'
+                        });
+                        console.log("Please fill out the form!");
+                    }
+
+                    // this.$refs.requestModalForm_internal.hide()
+                    this.$refs.showReferenceCode.show() 
+                    
+                    this.flashMessage.success({
+                        message: 'Ticket Submitted Successfully!'
+                    });
+                    console.log("Ticket Submitted Successfully!");
+            },
+            copyReferenceCode(){
+                var copyText = document.getElementById("myInput");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); 
+                navigator.clipboard.writeText(copyText.value);
+                
+                this.flashMessage.success({
+                    message: 'Reference Code Copied Successfully!'
+                });
+                console.log("Reference Code Copied Successfully!");
+            },
+            closeReferenceCode(){
+                window.location.reload();
+            },
+            okayErrorModal(){
+                window.location.reload();
+            },
+            openRequestModalForm_internal(){
+                this.$refs.requestModalForm_internal.show()
+            },
+            openRequestModalForm_external(){
+                this.$refs.requestModalForm_external.show()
+            },
+            openRequestModalForm_starbooks(){
+                this.$refs.requestModalForm_starbooks.show()
+            },
+            getTicketStatus: async function() {
+                let ref_code = this.ticketData.referenceCode;
+
+                const refCode = await ticket_service.validateRefCode(ref_code);
+                let _refCode = refCode.data
+
+                if (_refCode == 1){
+                    try{
+                        const response = await ticket_service.getTicketStatus(ref_code);
+
+                        this.ticket = response.data;
+                    } catch(error) {
+                        this.flashMessage.error({
+                        message: 'Some error occured! Please try again.',
+                        time: 5000
+                        });
+                    }
+                    this.$refs['showDetails'].show();
+                }
+                else if (_refCode == 0){
+                    this.flashMessage.warning({
+                        message: 'Reference Code does not exist! Please enter a valid Reference Code'
+                    });
+                }
+
+            }
+        }
+    }
 </script>

@@ -7,7 +7,7 @@
                         <div class="sb-nav-link-icon">
                             <!-- <i class="fas fa-arrow-right"></i> -->
                         </div>
-                        <b>TICKETS</b>
+                        <b>MANAGE TICKET</b>
                     </router-link>
                     <!-- <div class="collapse" id="collapse_sciencejourno" aria-labelledby="headingOne" data-parent="#sidenavAccordion" > -->
                     <div >
@@ -107,13 +107,13 @@
                                 </div>
                                 <a v-on:click="count()">DOST-STII Employee </a>
                             </router-link>
-                            <router-link to="/ticket/admin/pending" class="nav-link" exact>
+                            <router-link to="/ticket/new/starbooks" class="nav-link" exact>
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-circle" style="color: #3c3e3e"></i>
                                 </div>
                                 <a v-on:click="count()">STARBOOKS </a>
                             </router-link>
-                            <router-link to="/ticket/admin/approved" class="nav-link" exact>
+                            <router-link to="/ticket/new/agency" class="nav-link" exact>
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-circle" style="color: #3c3e3e"></i>
                                 </div>

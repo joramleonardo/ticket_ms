@@ -47,6 +47,8 @@ import Ticket_Public_Status from './views/Ticket-Public-Status.vue';
 import Ticket_Public_Completed from './views/Ticket-Public-Completed.vue';
 
 import Ticket_New_Employee from './views/New_Ticket_Employee.vue';
+import Ticket_New_STARBOOKS from './views/New_Ticket_starbooks.vue';
+import Ticket_New_Agency from './views/New_Ticket_OtherAgency.vue';
 
 
 Vue.use(Router);
@@ -186,6 +188,16 @@ const routes = [
                 path: '/ticket/new/employee',
                 name: 'ticket-new-employee',
                 component: Ticket_New_Employee,
+            },
+            {
+                path: '/ticket/new/agency',
+                name: 'ticket-new-agency',
+                component: Ticket_New_Agency,
+            },
+            {
+                path: '/ticket/new/starbooks',
+                name: 'ticket-new-starbooks',
+                component: Ticket_New_STARBOOKS,
             }
         ],
     },

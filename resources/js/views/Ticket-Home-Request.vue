@@ -56,10 +56,10 @@
                 <div class="row justify-content-center">
                     <!-- Employee-->
                     <div class="col-md-4 col-lg-4 mb-5">
-                        <h5 class="text-center text-uppercase text-secondary mb-2">DOST-STII Employee</h5>
+                        <h5 class="text-center text-uppercase text-secondary mb-2">DOST-STII</h5>
                         <div class="portfolio-item mx-auto">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><b-button class="bg-warning" @click="openRequestModalForm_internal()">Submit a Request</b-button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><b-button class="bg-warning" @click="openRequestModalForm_internal()">SELECT</b-button></div>
                             </div>
                             <!-- <img class="img-fluid" src="img/portfolio/cabin.png" alt="..." /> -->
                             <img class="img-fluid" src="img/portfolio/stii-logo.png" alt="..." />
@@ -70,7 +70,7 @@
                         <h5 class="text-center text-uppercase text-secondary mb-2">STARBOOKS</h5>
                         <div class="portfolio-item mx-auto">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><b-button class="bg-warning" @click="openRequestModalForm_starbooks()">Submit a Request</b-button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><b-button class="bg-warning" @click="openRequestModalForm_starbooks()">SELECT</b-button></div>
                             </div>
                             <img class="img-fluid" src="img/portfolio/starbooks-logo.png" alt="..." />
                         </div>
@@ -80,7 +80,7 @@
                         <h5 class="text-center text-uppercase text-secondary mb-2">Other Agency</h5>
                         <div class="portfolio-item mx-auto">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><b-button class="bg-warning" @click="openRequestModalForm_external()">Submit a Request</b-button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><b-button class="bg-warning" @click="openRequestModalForm_external()">SELECT</b-button></div>
                             </div>
                             <img class="img-fluid" src="img/portfolio/dost3.png" alt="..." />
                         </div>

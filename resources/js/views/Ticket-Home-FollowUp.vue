@@ -70,15 +70,27 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- About Section Content-->
-                <div class="row">
+                <!-- <div class="row">
                     <b-form class="loginn-form" v-on:submit.prevent="getTicketStatus">
                             <b-form-group class="group">
                                 <b-form-input id="referenceCode" v-model="ticketData.referenceCode" type="text" class="input" style="border: 1px solid #ced4da !important;"></b-form-input>
                             </b-form-group>
-                            <b-form-group class="group">
-                                <b-button type="submit" class="track-btn" variant="outline-info" style="background: #2384b3 !important; width: 100%; color:white">Track</b-button>
-                            </b-form-group>
+                                <b-button type="submit" class="track-btn" variant="outline-info" style="background: #ffc107  !important; color:white">Track</b-button>
+                            
                     </b-form>
+                </div> -->
+                
+                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-200 w-200">
+                    <div class="portfolio-item-caption-content text-center text-white">
+                    <b-form class="loginn-form" v-on:submit.prevent="getTicketStatus">
+                            <b-form-group class="group">
+                                <b-form-input id="referenceCode" v-model="ticketData.referenceCode" type="text" class="input" style="border: 1px solid #ced4da !important;"></b-form-input>
+                            </b-form-group>
+                            <b-button type="submit" class="track-btn" variant="outline-info" style="background: #ffc107  !important; color:white">Track</b-button>
+                            
+                    </b-form>
+                        
+                    </div>
                 </div>
             </div>
         </section>

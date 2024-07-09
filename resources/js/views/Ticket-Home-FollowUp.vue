@@ -59,27 +59,20 @@
             <b-button class="mt-3" variant="danger" block @click="okayErrorModal()">Okay</b-button>
         </b-modal>
         <!-- Track Section-->
-        <section class="masthead page-section bg-secondary text-white mb-0" id="track">
-            <div class="container">
-                <!-- About Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-white">Track your request</h2>
+        <section class="masthead page-section text-white mb-0" id="track" style="background-color: #004A98 !important">
+            
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Track your Ticket</h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- About Section Content-->
-                <!-- <div class="row">
-                    <b-form class="loginn-form" v-on:submit.prevent="getTicketStatus">
-                            <b-form-group class="group">
-                                <b-form-input id="referenceCode" v-model="ticketData.referenceCode" type="text" class="input" style="border: 1px solid #ced4da !important;"></b-form-input>
-                            </b-form-group>
-                                <b-button type="submit" class="track-btn" variant="outline-info" style="background: #ffc107  !important; color:white">Track</b-button>
-                            
-                    </b-form>
-                </div> -->
-                
+                <!-- Masthead Subheading-->
+                <p class="masthead-subheading font-weight-light mb-0">Enter Reference Number</p>
+                <br>
                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-200 w-200">
                     <div class="portfolio-item-caption-content text-center text-white">
                     <b-form class="loginn-form" v-on:submit.prevent="getTicketStatus">
@@ -91,6 +84,108 @@
                     </b-form>
                         
                     </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section-->
+        <section class="page-section portfolio" id="contact" style="color: #6c757d !important;">
+            <div class="container" style="color: #6c757d !important;">
+                <div class="section-noresult container d-flex align-items-center flex-column">
+                    <img class="masthead-avatar mb-5" src="img/no-result.jpg" alt="..." width="200" height="200"/>
+                </div>
+                <div class="section-result container d-flex align-items-center flex-column">
+                    <p class="masthead-subheading font-weight-light mb-0">Result Here</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="page-section portfolio" id="contact" style="color: #6c757d !important; display: none">
+        
+            <!-- <div style="" id="spinner_">
+                <div class="text-center" style="margin: 10px 0 10px 0">
+                    <b-spinner label="Busy"></b-spinner>
+                </div>
+            </div> -->
+            <div>
+                <div class="container" style="color: #6c757d !important;">
+                    <h4 class="page-section-heading text-center text-uppercase text-secondary">Ticket Details</h4>
+                    <b-form-group label-cols="4" label-cols-lg="2" label-for="input-default" label="Reference No:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                 {{this.ticket.reference_code}}
+                    </b-form-group>
+                    <b-form-group label-cols="4" label-cols-lg="2" label-for="input-default" label="Status:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                    {{this.ticket.status}}
+                    </b-form-group>
+                    <b-row>
+                        <b-col>
+                            <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Date of Request:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                            {{this.ticket.ticket_created}}
+                            </b-form-group>
+                        </b-col>
+                        <b-col>
+                            <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Date Accomplished:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                            {{this.ticket.ticket_completed}}
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-form-group label-cols="4" label-cols-lg="2" label-for="input-default" label="Client Name:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                    {{this.ticket.externalName}}
+                    </b-form-group>
+                    <b-form-group label-cols="4" label-cols-lg="2" label-for="input-default" label="Division:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                    {{this.ticket.empDiv}}
+                    </b-form-group>
+                    <b-row>
+                        <b-col>
+                            <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Nature of Support:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                            {{this.ticket.natureOfSupport}}
+                            </b-form-group>
+                        </b-col>
+                        <b-col>
+                            <div v-if="this.ticket.natureOfSupport === 'Hardware'">
+                                <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Support Type:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                                {{this.ticket.hardware}}
+                                </b-form-group>
+                            </div>
+                        <div v-if="this.ticket.natureOfSupport === 'Software'">
+                                <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Support Type:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                                {{this.ticket.software}}
+                                </b-form-group>
+                            </div>
+                        </b-col>
+                    </b-row>
+                    <b-form-group label-cols="4" label-cols-lg="2" label-for="input-default" label="Remarks:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                    {{this.ticket.remarks}}
+                    </b-form-group>
+                    <b-row>
+                        <b-col>
+                            <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Attended By:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                            {{this.ticket.attended_by}}
+                            </b-form-group>
+                        </b-col>
+                            <b-col>
+                                <div v-if="this.ticket.assisted_by_1 === ''">
+                                    <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Assisted By:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                                    <span style="font-style: italic"> None </span>
+                                    </b-form-group>
+                                </div>
+                                <div v-if="this.ticket.assisted_by_1 === 'undefined'">
+                                    <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Assisted By:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                                    <span style="font-style: italic"> None </span>
+                                    </b-form-group>
+                                </div>
+                                <div v-if="this.ticket.assisted_by_1 != ''">
+                                    <b-form-group label-cols="4" label-cols-lg="4" label-for="input-default" label="Assisted By:" label-class="font-weight-bold pt-0" class="ticket_details-font">
+                                                    {{this.ticket.assisted_by_1}}
+                                    </b-form-group>
+                                </div>
+                            </b-col>
+                    </b-row>
+                    <!-- <div class="row">
+                        <div class="col-lg-9 ms-auto">
+                            <p class="lead text-secondary">
+                            For concerns and/or feedback, you can email us at itu@stii.dost.gov.ph
+                            </p></div>
+                    </div> -->
                 </div>
             </div>
         </section>

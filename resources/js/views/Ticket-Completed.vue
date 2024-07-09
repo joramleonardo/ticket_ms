@@ -103,7 +103,7 @@
                                     <template #cell(satisfaction)="row">
                                         <div v-if="row.item.rating_status === 'Pending'">
                                             <router-link target="_blank" :to="{name: 'rating', params: {id: row.item.id, type: row.item.internal_external}}">
-                                                <b-button size="sm" class="mr-1 jkl-btn-view btn-submit-rating">Submit Rating</b-button>
+                                                <b-button disabled size="sm" class="mr-1 jkl-btn-view btn-submit-rating">Submit Rating</b-button>
                                             </router-link>
                                         </div>
                                         <div v-if="row.item.rating_status === 'Received'">

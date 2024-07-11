@@ -89,7 +89,93 @@
         </section>
         
         <!-- Contact Section-->
-        <section class="page-section portfolio" id="contact" style="color: #6c757d !important;">
+        <section class="page-section portfolio" id="contact" style="color: #000000 !important;">
+            <div class="container">
+                <div class="timeline-container ">
+                    <div class="leftbox"></div>
+                    <div class="rightbox">
+                        <div class="rb-container">
+                        <ul class="rb">
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Chris Serrano posted a photo on your wall.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Mia Redwood commented on your last post.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Lucas McAlister just send you a message.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Mia Redwood commented on your last post.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Lucas McAlister just send you a message.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Mia Redwood commented on your last post.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Lucas McAlister just send you a message.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Mia Redwood commented on your last post.
+                                </div>
+                            </li>
+                            <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    February 13 2024 11:23 AM
+                                </div>
+                                <div class="item-title">
+                                    Lucas McAlister just send you a message.
+                                </div>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- <section class="page-section portfolio" id="contact" style="color: #6c757d !important;">
             <div class="container" style="color: #6c757d !important;">
                 <div class="section-noresult container d-flex align-items-center flex-column">
                     <img class="masthead-avatar mb-5" src="img/no-result.jpg" alt="..." width="200" height="200"/>
@@ -98,7 +184,7 @@
                     <p class="masthead-subheading font-weight-light mb-0">Result Here</p>
                 </div>
             </div>
-        </section>
+        </section> -->
         
         <section class="page-section portfolio" id="contact" style="color: #6c757d !important; display: none">
         
@@ -615,6 +701,113 @@
         color:rgb(233, 229, 229) !important;
         box-shadow: 3px 5px #babcc0;
     }
+
+
+    .timeline-container {
+    background: #ffffff;
+    /* width: 540px;
+    height: 500px; */
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+    }
+
+
+     .leftbox {
+        top: -5%;
+        left: 10%;
+        position: absolute;
+        width: 10%;
+        height: 110%;
+        background-color: #FFC107;
+        box-shadow: 3px 3px 15px rgba(119, 119, 119, 0.5);
+        }
+
+    .rb-container {
+    font-family: "PT Sans", sans-serif;
+    width: 80%;
+    margin: auto;
+    display: block;
+    position: relative;
+    }
+
+    .rb-container ul.rb {
+    margin: 2.5em 0;
+    padding: 0;
+    display: inline-block;
+    }
+
+    .rb-container ul.rb li {
+    list-style: none;
+    margin: auto;
+    margin-left: 6em;
+    min-height: 50px;
+    border-left: 2px dashed rgb(0, 74, 152);
+    padding: 0 0 50px 30px;
+    position: relative;
+    }
+
+    .rb-container ul.rb li:last-child {
+    border-left: 0;
+    }
+
+    .rb-container ul.rb li::before {
+    position: absolute;
+    left: -11px;
+    top: -5px;
+    content: " ";
+    border: 8px solid rgba(255, 255, 255, 1);
+    border-radius: 500%;
+    background: rgb(0, 74, 152) !important;
+    height: 20px;
+    width: 20px;
+    transition: all 500ms ease-in-out;
+    }
+
+
+    ul.rb li .timestamp {
+    color: rgb(0, 74, 152) !important;
+    position: relative;
+    width: 100%;
+    font-weight: 900;
+    }
+
+    .item-title {
+        color: rgb(0, 0, 0);
+    }
+
+    .container-3 {
+    width: 5em;
+    vertical-align: right;
+    white-space: nowrap;
+    position: absolute;
+    }
+
+    .container-3 input#search {
+    width: 150px;
+    height: 30px;
+    background: #fbfbfb;
+    border: none;
+    font-size: 10pt;
+    color: #262626;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 0.9em 0 0 28.5em;
+    box-shadow: 3px 3px 15px rgba(119, 119, 119, 0.5);
+    }
+
+    .container-3 .icon {
+    margin: 1.3em 3em 0 31.5em;
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    z-index: 1;
+    color: #4f5b66;
+    }
+
+
+
 	
 </style>
 

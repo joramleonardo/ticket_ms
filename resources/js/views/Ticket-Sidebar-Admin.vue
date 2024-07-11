@@ -101,19 +101,19 @@
                     </router-link>
                     <div >
                         <nav class="sb-sidenav-menu-nested nav">
-                            <router-link to="/ticket/new/employee" class="nav-link" exact>
+                            <router-link to="/ticket/admin/new/employee" class="nav-link" exact>
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-circle" style="color: #3c3e3e"></i>
                                 </div>
                                 <a v-on:click="count()">DOST-STII Employee </a>
                             </router-link>
-                            <router-link to="/ticket/new/starbooks" class="nav-link" exact>
+                            <router-link to="/ticket/admin/new/starbooks" class="nav-link" exact>
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-circle" style="color: #3c3e3e"></i>
                                 </div>
                                 <a v-on:click="count()">STARBOOKS </a>
                             </router-link>
-                            <router-link to="/ticket/new/agency" class="nav-link" exact>
+                            <router-link to="/ticket/admin/new/agency" class="nav-link" exact>
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-circle" style="color: #3c3e3e"></i>
                                 </div>

@@ -7,9 +7,8 @@
                         <div class="sb-nav-link-icon">
                             <!-- <i class="fas fa-arrow-right"></i> -->
                         </div>
-                        Tickets
+                        <b>MANAGE TICKET</b>
                     </router-link>
-                    <!-- <div class="collapse" id="collapse_sciencejourno" aria-labelledby="headingOne" data-parent="#sidenavAccordion" > -->
                     <div >
                         <nav class="sb-sidenav-menu-nested nav">
                             <router-link to="/ticket/staff/status" class="nav-link" exact>
@@ -63,11 +62,43 @@
                             
                         </nav>
                     </div>
+                    
+                    <router-link to="/home/technical" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="" exact>
+                        <div class="sb-nav-link-icon">
+                            <!-- <i class="fas fa-arrow-right"></i> -->
+                        </div>
+                        <b>CREATE TICKET</b>
+                    </router-link>
+                    <div >
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <router-link to="/ticket/staff/new/employee" class="nav-link" exact>
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-circle" style="color: #3c3e3e"></i>
+                                </div>
+                                <a v-on:click="count()">DOST-STII Employee </a>
+                            </router-link>
+                            <router-link to="/ticket/staff/new/starbooks" class="nav-link" exact>
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-circle" style="color: #3c3e3e"></i>
+                                </div>
+                                <a v-on:click="count()">STARBOOKS </a>
+                            </router-link>
+                            <router-link to="/ticket/staff/new/agency" class="nav-link" exact>
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-circle" style="color: #3c3e3e"></i>
+                                </div>
+                                <a v-on:click="count()">Other Agency </a>
+                            </router-link>
+                            
+                        </nav>
+                    </div>
+
                     <router-link to="/login" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="" exact>
                         <div class="sb-nav-link-icon">
                             <i class="fas fa-arrow-right"></i>
                         </div>
-                        Logout
+                        <b>LOGOUT</b>
+                        <!-- <a v-on:click="doSomething">Logout </a> -->
                     </router-link>
 
                     

@@ -185,18 +185,18 @@ const routes = [
                 component: Ticket_Admin_Rescheduled,
             },
             {
-                path: '/ticket/new/employee',
-                name: 'ticket-new-employee',
+                path: '/ticket/admin/new/employee',
+                name: 'ticket-admin-new-employee',
                 component: Ticket_New_Employee,
             },
             {
-                path: '/ticket/new/agency',
-                name: 'ticket-new-agency',
+                path: '/ticket/admin/new/agency',
+                name: 'ticket-admin-new-agency',
                 component: Ticket_New_Agency,
             },
             {
-                path: '/ticket/new/starbooks',
-                name: 'ticket-new-starbooks',
+                path: '/ticket/admin/new/starbooks',
+                name: 'ticket-admin-new-starbooks',
                 component: Ticket_New_STARBOOKS,
             }
         ],
@@ -236,6 +236,21 @@ const routes = [
                 path: '/ticket/staff/rescheduled',
                 name: 'ticket-staff-rescheduled',
                 component: Ticket_Staff_Rescheduled,
+            },
+            {
+                path: '/ticket/staff/new/employee',
+                name: 'ticket-staff-new-employee',
+                component: Ticket_New_Employee,
+            },
+            {
+                path: '/ticket/staff/new/agency',
+                name: 'ticket-staff-new-agency',
+                component: Ticket_New_Agency,
+            },
+            {
+                path: '/ticket/staff/new/starbooks',
+                name: 'ticket-staff-new-starbooks',
+                component: Ticket_New_STARBOOKS,
             }
         ],
     },

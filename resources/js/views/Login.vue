@@ -82,9 +82,6 @@
             login: async function () {
                 try {
                     const response = await authServices.login(this.user);
-                    // this.$router.push('/admin');
-                    // console.log(response.token_scope)
-                    // console.log(response.user.name)
                     if(response.token_scope == 'superadmin'){
                         this.$router.push('/ticket/superadmin/status');
                     } 

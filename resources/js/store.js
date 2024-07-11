@@ -15,8 +15,6 @@ export default new Vuex.Store({
 
 
 
-
-
 // import Vue from 'vue';
 // import Vuex from 'vuex';
 

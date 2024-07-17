@@ -94,6 +94,8 @@ Route::post('addTicket_internal', 'TicketController@addTicket_internal');
 Route::post('addTicket_external', 'TicketController@addTicket_external');
 Route::post('addTicketStatus_Pending', 'TicketController@addTicketStatus_Pending');
 
+Route::post('addActivityLog', 'TicketController@addActivityLog');
+
 Route::post('technical_addTicket_internal', 'TicketController@technical_addTicket_internal');
 Route::post('technical_addTicketStatus_Pending', 'TicketController@technical_addTicketStatus_Pending');
 

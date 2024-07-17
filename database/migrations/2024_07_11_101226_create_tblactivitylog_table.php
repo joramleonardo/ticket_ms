@@ -17,6 +17,7 @@ class CreateTblactivitylogTable extends Migration
             $table->id();
             $table->string('username');
             $table->string('activity_id');
+            $table->string('activity_date');
             $table->string('ticket_id');
             $table->timestamps();
         });

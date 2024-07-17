@@ -24,6 +24,10 @@ export function addTicketStatus_Pending(data){
     return httpFile().post('/addTicketStatus_Pending', data);
 }
 
+export function addActivityLog(data){
+    return httpFile().post('/addActivityLog', data);
+}
+
 export function technical_addTicket_internal(data){
     return httpFile().post('/technical_addTicket_internal', data);
 }

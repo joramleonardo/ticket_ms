@@ -10,6 +10,8 @@ use App\TicketDivisions;
 use App\TicketSections;
 use App\TicketReferenceCode;
 use App\TicketStatus;
+use App\Activity;
+use App\ActivityLog;
 use Session;
 
 
@@ -66,6 +68,16 @@ class TicketController extends Controller
         $data->status = $request->status;
         $data->reference_code = $request->reference_code;
         $data->entry_date = $request->entry_date;
+        $data->save();
+    }
+
+    public function addActivityLog(Request $request){
+        $data = new ActivityLog(); // insert into table tblactivitylog
+
+        $data->username = $request->username;
+        $data->activity_id = $request->activity_id;
+        $data->activity_date = $request->activity_date;
+        $data->ticket_id = $request->ticket_id;
         $data->save();
     }
 
@@ -247,7 +259,6 @@ class TicketController extends Controller
         $data->save();
     }
 
-
     public function updateRemarks(Request $request, $id)
     {
         $data = TicketStatus::where('id', $id)->first();
@@ -257,8 +268,6 @@ class TicketController extends Controller
         $data->tech_remarks = $request->tech_remarks;
         $data->save();
     }
-
-
 
     public function updateInProg_Ticket_1(Request $request, $id)
     {
@@ -431,19 +440,6 @@ class TicketController extends Controller
                         ");
         return response()->json($data, 200);
     }
-
-    // public function getAllTicketDetails_Completed(){
-    //     $data = DB::select("SELECT `tickets`.*, `ticket_employees`.*, `ticket_statuses`.*
-    //                         FROM `tickets`
-    //                         LEFT JOIN `ticket_employees`
-    //                         ON `tickets`.`employee_code`=`ticket_employees`.`employee_code`
-    //                         LEFT JOIN `ticket_statuses`
-    //                         ON `ticket_statuses`.`reference_code`=`tickets`.`reference_code`
-    //                         WHERE `ticket_statuses`.`status`='Completed'
-    //                         ORDER BY `ticket_created`
-    //                     ");
-    //     return response()->json($data, 200);
-    // }
 
     public function getAllTicketDetails_Rescheduled(){
         $data = DB::select("SELECT `tickets`.*, `ticket_employees`.*, `ticket_statuses`.*

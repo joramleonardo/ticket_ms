@@ -1172,6 +1172,7 @@ export default {
             this.$refs.requestModalForm_external.show()
         },
         getTicketStatus: async function() {
+            console.log("Hey");
 			let ref_code = this.ticketData.referenceCode;
 
             const refCode = await ticket_service.validateRefCode(ref_code);
@@ -1180,9 +1181,21 @@ export default {
             let _refCodeDetails = refCodeDetails.data[0];
             this.internal_external = _refCodeDetails.internal_external;
 
+            let username = 1;
+            let activity_id = 2;
+            let activity_date = 3;
+            let ticket_id = 4;
+
             if (_refCode == 1){
                 try{
                     const response = await ticket_service.getTicketStatus(ref_code);
+                    
+                    let formData_ticketData = new FormData();
+                    formData_ticketData.append('username', username);
+                    formData_ticketData.append('activity_id', activity_id);
+                    formData_ticketData.append('activity_date', activity_date);
+                    formData_ticketData.append('ticket_id', ticket_id);
+                    const response_ticketData = await ticket_service.addActivityLog(formData_ticketData);
 
                     this.ticket = response.data;
                 } catch(error) {

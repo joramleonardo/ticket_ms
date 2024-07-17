@@ -643,6 +643,17 @@ export default {
                 this.$refs.showErrorModal.show() 
                     
             }
+
+            let activity_id = 3;
+            let activity_date = date_ticketCreatedComplete;
+            let ticket_id = this.ticketData_update.reference_code;
+
+            let formData_activityLog = new FormData();
+            formData_activityLog.append('activity_id', activity_id);
+            formData_activityLog.append('activity_date', activity_date);
+            formData_activityLog.append('ticket_id', ticket_id);
+            const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
         },
         createTicket_external: async function() {
 
@@ -740,6 +751,19 @@ export default {
                 });
                 console.log("Please fill out the form!");
             }
+            
+
+            let activity_id = 3;
+            let activity_date = date_ticketCreatedComplete;
+            let ticket_id = this.ticketData_update.reference_code;
+
+            let formData_activityLog = new FormData();
+            formData_activityLog.append('activity_id', activity_id);
+            formData_activityLog.append('activity_date', activity_date);
+            formData_activityLog.append('ticket_id', ticket_id);
+            const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
+
             this.$refs.requestModalForm_external.hide()
             this.$refs.showReferenceCode.show() 
           
@@ -815,65 +839,55 @@ export default {
 				this.ref_code = currentYear + currentMonth + currentDay + "-" + "0" + new_totalEntry;
 			}
 
-                try {
-                    let formData_ticketData = new FormData();
-                    formData_ticketData.append('reference_code', this.ref_code);
-                    formData_ticketData.append('ticket_created', date_ticketCreatedComplete2);
-                    formData_ticketData.append('sex', this.ticketData.sex);
-                    formData_ticketData.append('internal_external', "External");
-                    formData_ticketData.append('externalName', this.ticketData.fName + " " + this.ticketData.lName);
-                    formData_ticketData.append('empEmail', this.ticketData.email);
-                    formData_ticketData.append('externalAgency', this.ticketData.externalAgency);
-                    formData_ticketData.append('date1', date_ticketCreatedComplete2);
-                    formData_ticketData.append('clientNote', this.ticketData.clientNote);
-                    formData_ticketData.append('supportType', "Technical Support");
-                    formData_ticketData.append('mode', "Online Remote");
+            try {
+                let formData_ticketData = new FormData();
+                formData_ticketData.append('reference_code', this.ref_code);
+                formData_ticketData.append('ticket_created', date_ticketCreatedComplete2);
+                formData_ticketData.append('sex', this.ticketData.sex);
+                formData_ticketData.append('internal_external', "External");
+                formData_ticketData.append('externalName', this.ticketData.fName + " " + this.ticketData.lName);
+                formData_ticketData.append('empEmail', this.ticketData.email);
+                formData_ticketData.append('externalAgency', this.ticketData.externalAgency);
+                formData_ticketData.append('date1', date_ticketCreatedComplete2);
+                formData_ticketData.append('clientNote', this.ticketData.clientNote);
+                formData_ticketData.append('supportType', "Technical Support");
+                formData_ticketData.append('mode', "Online Remote");
 
-                    this.ticketData_update.reference_code = this.ref_code;
+                this.ticketData_update.reference_code = this.ref_code;
 
-                    let formData_ticketDataStatus = new FormData();
-                    formData_ticketDataStatus.append('reference_code', this.ref_code);
-                    formData_ticketDataStatus.append('status', 'Completed');
-                    formData_ticketDataStatus.append('entry_date', date_ticketCreated);
-                    formData_ticketDataStatus.append('assignedStaff', "Mc Gyver Basaya");
-                    formData_ticketDataStatus.append('approved_by', "Mc Gyver Basaya");
-                    formData_ticketDataStatus.append('attended_by', "Mc Gyver Basaya");
-                    formData_ticketDataStatus.append('priority', "Low");
-                    formData_ticketDataStatus.append('ticket_approved', date_ticketCreatedComplete2);
-                    formData_ticketDataStatus.append('ticket_attended', date_ticketCreatedComplete2);
-                    formData_ticketDataStatus.append('problem_that_needed_support', this.ticketData.clientNote);
-                    formData_ticketDataStatus.append('actions_taken', this.ticketData.actions_taken);
-                    formData_ticketDataStatus.append('remarks', "-");
-                    formData_ticketDataStatus.append('feedback_status', "Pending");
-                    formData_ticketDataStatus.append('date2', date_ticketCreatedComplete2); //date requested
-                    formData_ticketDataStatus.append('natureOfSupport', "Software");
-                    formData_ticketDataStatus.append('hardware', "-");
-                    formData_ticketDataStatus.append('software', this.ticketData.softwareType);
-                    formData_ticketDataStatus.append('supportType_', "Technical Support");
-                    formData_ticketDataStatus.append('mode_', "Online Remote");
-                    formData_ticketDataStatus.append('assisted_by_1', this.ticketData.assisted_by_1);
-                    formData_ticketDataStatus.append('assisted_by_2', "None");
-                    formData_ticketDataStatus.append('clientNote_', this.ticketData.clientNote);
-                    formData_ticketDataStatus.append('type', "Starbooks related");
-                    formData_ticketDataStatus.append('ticket_completed', date_ticketCreatedComplete2);
+                let formData_ticketDataStatus = new FormData();
+                formData_ticketDataStatus.append('status', 'New');
+                formData_ticketDataStatus.append('entry_date', date_ticketCreated);
+                formData_ticketDataStatus.append('reference_code', this.ref_code);
 
-                    const response_ticketData = await ticket_service.technical_addTicket_starbooks(formData_ticketData);
-                    const response_ticketDataStatus = await ticket_service.technical_addTicketStatus_starbooks(formData_ticketDataStatus);
-                }
-                catch (error) {
-                    this.flashMessage.warning({
-                        message: 'Please fill out the form!'
-                    });
-                    console.log("Please fill out the form!");
-                }
-
-                this.$refs.requestModalForm_internal.hide()
-                this.$refs.showReferenceCode.show() 
-                
-                this.flashMessage.success({
-                    message: 'Ticket Submitted Successfully!'
+                const response_ticketData = await ticket_service.technical_addTicket_starbooks(formData_ticketData);
+                const response_ticketDataStatus = await ticket_service.addTicketStatus_Pending(formData_ticketDataStatus);
+            }
+            catch (error) {
+                this.flashMessage.warning({
+                    message: 'Please fill out the form!'
                 });
-                console.log("Ticket Submitted Successfully!");
+                console.log("Please fill out the form!");
+            }
+            
+
+            let activity_id = 3;
+            let activity_date = date_ticketCreatedComplete2;
+            let ticket_id = this.ticketData_update.reference_code;
+
+            let formData_activityLog = new FormData();
+            formData_activityLog.append('activity_id', activity_id);
+            formData_activityLog.append('activity_date', activity_date);
+            formData_activityLog.append('ticket_id', ticket_id);
+            const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
+            this.$refs.requestModalForm_internal.hide()
+            this.$refs.showReferenceCode.show() 
+            
+            this.flashMessage.success({
+                message: 'Ticket Submitted Successfully!'
+            });
+            console.log("Ticket Submitted Successfully!");
         },
 		copyReferenceCode(){
 			var copyText = document.getElementById("myInput");

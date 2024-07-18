@@ -81,6 +81,24 @@ class TicketController extends Controller
         $data->save();
     }
 
+    public function loadActivityLog(Request $request, $id){
+        $data = ActivityLog::join('ticket_statuses','activity_logs.ticket_id', '=', 'ticket_statuses.reference_code')
+                            ->join('tblactivity', 'activity_logs.activity_id','=', 'tblactivity.id')
+                            ->where('activity_logs.ticket_id', $id)
+                            ->get('*');
+        
+        return response()->json($data, 200);
+    }
+
+    // public function loadTicketDetails(Request $request, $id){
+    //     $data = TicketStatus::join('tickets','ticket_statuses.reference_code', '=', 'tickets.reference_code')
+    //                         ->join('ticket_employees', 'tickets.employee_code','=', 'ticket_employees.employee_code')
+    //                         ->where('ticket_statuses.id', $id)
+    //                         ->get('*');
+        
+    //     return response()->json($data, 200);
+    // }
+
     public function technical_addTicket_internal(Request $request){
         $data = new Ticket();
 

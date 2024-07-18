@@ -28,6 +28,10 @@ export function addActivityLog(data){
     return httpFile().post('/addActivityLog', data);
 }
 
+export function loadActivityLog(id){
+    return httpFile().post(`/loadActivityLog/${id}`);
+}
+
 export function technical_addTicket_internal(data){
     return httpFile().post('/technical_addTicket_internal', data);
 }

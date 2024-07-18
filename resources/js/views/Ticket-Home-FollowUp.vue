@@ -89,85 +89,53 @@
         </section>
         
         <!-- Contact Section-->
-        <section class="page-section portfolio" id="contact" style="color: #000000 !important;">
+        <section class="page-section portfolio" id="status" style="color: #000000 !important; display: none" >
             <div class="container">
                 <div class="timeline-container ">
                     <div class="leftbox"></div>
                     <div class="rightbox">
                         <div class="rb-container">
                         <ul class="rb">
+                            <span  v-for="(event, index) in ticketTracking" :key="index">
                             <li class="rb-item" ng-repeat="itembx">
+                                <div class="timestamp">
+                                    {{event.activity_date}}
+                                </div>
+                                <div class="item-title">
+                                    <span v-if="event.activity_id === '3'">
+                                        Ticket has been created <span style="font-weight: 700"> [Reference No: {{event.ticket_id}}] </span>
+                                        <br>
+                                        {{event.problem_that_needed_support}}
+                                    </span>
+                                    <span v-if="event.activity_id === '4'">
+                                        Ticket has been assigned <span style="font-weight: 700"> [Assigned to: {{event.assignedStaff}}] </span>
+                                    </span>
+                                    <span v-if="event.activity_id === '5'">
+                                        Ticket has been attended
+                                    </span>
+                                    <span v-if="event.activity_id === '6'">
+                                        Ticket has been completed
+                                    </span>
+                                    <span v-if="event.activity_id === '7'">
+                                        Added a remarks
+                                    </span>
+                                    <span v-if="event.activity_id === '8'">
+                                        Ticket details has been updated
+                                    </span>
+                                    <span v-if="event.activity_id === '9'">
+                                        Rating has been submitted
+                                    </span>
+                                </div>
+                            </li>
+                            </span>
+                            <!-- <li class="rb-item" ng-repeat="itembx">
                                 <div class="timestamp">
                                     February 13 2024 11:23 AM
                                 </div>
                                 <div class="item-title">
                                     Chris Serrano posted a photo on your wall.
                                 </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Mia Redwood commented on your last post.
-                                </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Lucas McAlister just send you a message.
-                                </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Mia Redwood commented on your last post.
-                                </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Lucas McAlister just send you a message.
-                                </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Mia Redwood commented on your last post.
-                                </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Lucas McAlister just send you a message.
-                                </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Mia Redwood commented on your last post.
-                                </div>
-                            </li>
-                            <li class="rb-item" ng-repeat="itembx">
-                                <div class="timestamp">
-                                    February 13 2024 11:23 AM
-                                </div>
-                                <div class="item-title">
-                                    Lucas McAlister just send you a message.
-                                </div>
-                            </li>
+                            </li> -->
                         </ul>
                         </div>
                     </div>
@@ -175,7 +143,7 @@
             </div>
         </section>
 
-        <!-- <section class="page-section portfolio" id="contact" style="color: #6c757d !important;">
+        <section class="page-section portfolio" id="no_status" style="color: #6c757d !important;">
             <div class="container" style="color: #6c757d !important;">
                 <div class="section-noresult container d-flex align-items-center flex-column">
                     <img class="masthead-avatar mb-5" src="img/no-result.jpg" alt="..." width="200" height="200"/>
@@ -184,7 +152,7 @@
                     <p class="masthead-subheading font-weight-light mb-0">Result Here</p>
                 </div>
             </div>
-        </section> -->
+        </section>
         
         <section class="page-section portfolio" id="contact" style="color: #6c757d !important; display: none">
         
@@ -845,6 +813,7 @@ export default {
 			ref_code:'',
             note_:'',
 			ticket: [],
+            ticketTracking: [],
 			ticketData:{
 				status:'',
 				reference_code:''
@@ -1172,50 +1141,59 @@ export default {
             this.$refs.requestModalForm_external.show()
         },
         getTicketStatus: async function() {
+
+            document.getElementById("status").style.display = "block";
+            document.getElementById("no_status").style.display = "none";
+
             console.log("Hey");
 			let ref_code = this.ticketData.referenceCode;
+            console.log(ref_code);
+            const refCodeDetails = await ticket_service.loadActivityLog(ref_code);
+            this.ticketTracking = refCodeDetails.data;
+            console.log(this.ticketTracking);
 
-            const refCode = await ticket_service.validateRefCode(ref_code);
-            let _refCode = refCode.data
-            const refCodeDetails = await ticket_service.validateRefCodeDetails(ref_code);
-            let _refCodeDetails = refCodeDetails.data[0];
-            this.internal_external = _refCodeDetails.internal_external;
+			// let ref_code = this.ticketData.referenceCode;
+            // const refCode = await ticket_service.validateRefCode(ref_code);
+            // let _refCode = refCode.data
+            // const refCodeDetails = await ticket_service.validateRefCodeDetails(ref_code);
+            // let _refCodeDetails = refCodeDetails.data[0];
+            // this.internal_external = _refCodeDetails.internal_external;
 
-            let username = 1;
-            let activity_id = 2;
-            let activity_date = 3;
-            let ticket_id = 4;
+            // let username = 1;
+            // let activity_id = 2;
+            // let activity_date = 3;
+            // let ticket_id = 4;
 
-            if (_refCode == 1){
-                try{
-                    const response = await ticket_service.getTicketStatus(ref_code);
+            // if (_refCode == 1){
+            //     try{
+            //         const response = await ticket_service.getTicketStatus(ref_code);
                     
-                    let formData_ticketData = new FormData();
-                    formData_ticketData.append('username', username);
-                    formData_ticketData.append('activity_id', activity_id);
-                    formData_ticketData.append('activity_date', activity_date);
-                    formData_ticketData.append('ticket_id', ticket_id);
-                    const response_ticketData = await ticket_service.addActivityLog(formData_ticketData);
+            //         let formData_ticketData = new FormData();
+            //         formData_ticketData.append('username', username);
+            //         formData_ticketData.append('activity_id', activity_id);
+            //         formData_ticketData.append('activity_date', activity_date);
+            //         formData_ticketData.append('ticket_id', ticket_id);
+            //         const response_ticketData = await ticket_service.addActivityLog(formData_ticketData);
 
-                    this.ticket = response.data;
-                } catch(error) {
-                    this.flashMessage.error({
-                    message: 'Some error occured! Please try again.',
-                    time: 5000
-                    });
-                }
+            //         this.ticket = response.data;
+            //     } catch(error) {
+            //         this.flashMessage.error({
+            //         message: 'Some error occured! Please try again.',
+            //         time: 5000
+            //         });
+            //     }
                 
-                if (this.internal_external === "Internal"){
-                    this.$refs['showDetails_internal'].show();
-                }else if (this.internal_external === "External"){
-                    this.$refs['showDetails_external'].show();
-                }
-            }
-            else if (_refCode == 0){
-                this.flashMessage.warning({
-                    message: 'Reference Code does not exist! Please enter a valid Reference Code'
-                });
-            }
+            //     if (this.internal_external === "Internal"){
+            //         this.$refs['showDetails_internal'].show();
+            //     }else if (this.internal_external === "External"){
+            //         this.$refs['showDetails_external'].show();
+            //     }
+            // }
+            // else if (_refCode == 0){
+            //     this.flashMessage.warning({
+            //         message: 'Reference Code does not exist! Please enter a valid Reference Code'
+            //     });
+            // }
 
         }
     }

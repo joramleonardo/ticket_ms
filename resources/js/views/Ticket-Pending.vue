@@ -558,6 +558,18 @@ export default {
 					message: 'Please fill out the form!'
 				});
             }
+
+            let activity_id = 4;
+            let activity_date = date_ticketCreatedComplete;
+            let ticket_id = this.assignedTicketData.reference_code;
+
+            let formData_activityLog = new FormData();
+            formData_activityLog.append('activity_id', activity_id);
+            formData_activityLog.append('activity_date', activity_date);
+            formData_activityLog.append('ticket_id', ticket_id);
+            const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
+
             this.loadAllTicketDetails();
             this.flashMessage.success({
 					message: 'Ticket Assigned Successfully!'

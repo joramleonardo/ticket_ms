@@ -776,7 +776,7 @@ export default {
             console.log("Ticket Submitted Successfully!");
         },
         createTicket_starbooks: async function() {
-			const date = new Date(this.ticketData.entryDate);
+			const date = new Date();
 			const months = ['January','February','March','April','May','June',
 				            'July','August','September','October','November','December'];
 			const monthIndex = date.getMonth()
@@ -792,6 +792,7 @@ export default {
             getHours = getHours % 12;
             getHours = getHours ? getHours : 12;
             getMinutes = getMinutes < 10 ? '0' + getMinutes : getMinutes;
+			let date_ticketCreatedComplete = monthName + " " + currentDay + " " + currentYear + " " + getHours + ":" + getMinutes + " " + newformat;
 
 			const date_created = new Date(this.ticketData.entryDate);
 			const months2 = ['January','February','March','April','May','June',
@@ -872,7 +873,7 @@ export default {
             
 
             let activity_id = 3;
-            let activity_date = date_ticketCreatedComplete2;
+            let activity_date = date_ticketCreatedComplete;
             let ticket_id = this.ticketData_update.reference_code;
 
             let formData_activityLog = new FormData();

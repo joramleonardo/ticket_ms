@@ -695,6 +695,19 @@ export default {
             formData.append('comments_suggestions', _comment);
 
 
+            
+
+            let activity_id = 9;
+            let activity_date = date_ticketCreated;
+            let ticket_id = this.ticket.reference_code;
+
+            let formData_activityLog = new FormData();
+            formData_activityLog.append('activity_id', activity_id);
+            formData_activityLog.append('activity_date', activity_date);
+            formData_activityLog.append('ticket_id', ticket_id);
+            const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
+
             const response = await ticket_service.updateRating(_id, formData);
             this.flashMessage.success({
                 message: 'Feedback Submitted Successfully!'

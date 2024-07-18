@@ -891,6 +891,20 @@ export default {
 					message: 'Please fill out the form!'
 				});
             }
+
+            let username = this.assignedTicketData.assignedStaff;
+            let activity_id = 8;
+            let activity_date = date_ticketCreated;
+            let ticket_id = this.assignedTicketData.reference_code;
+
+            let formData_activityLog = new FormData();
+            formData_activityLog.append('username', username);
+            formData_activityLog.append('activity_id', activity_id);
+            formData_activityLog.append('activity_date', activity_date);
+            formData_activityLog.append('ticket_id', ticket_id);
+            const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
+
             this.loadAllTicketDetails();
             this.$refs['assignModalForm_1'].hide();
             this.$refs['assignModalForm_2'].hide();
@@ -968,6 +982,20 @@ export default {
 					message: 'Please fill out the form!'
 				});
             }
+
+            let username = this.assignedTicketData.assignedStaff;
+            let activity_id = 8;
+            let activity_date = date_ticketCreated;
+            let ticket_id = this.assignedTicketData.reference_code;
+
+            let formData_activityLog = new FormData();
+            formData_activityLog.append('username', username);
+            formData_activityLog.append('activity_id', activity_id);
+            formData_activityLog.append('activity_date', activity_date);
+            formData_activityLog.append('ticket_id', ticket_id);
+            const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
+            
             this.loadAllTicketDetails();
             this.$refs['assignModalForm_1'].hide();
             this.$refs['assignModalForm_2'].hide();

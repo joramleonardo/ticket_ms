@@ -83,7 +83,6 @@ class TicketController extends Controller
 
     public function loadActivityLog(Request $request, $id){
         $data = ActivityLog::join('ticket_statuses','activity_logs.ticket_id', '=', 'ticket_statuses.reference_code')
-                            ->join('tblactivity', 'activity_logs.activity_id','=', 'tblactivity.id')
                             ->where('activity_logs.ticket_id', $id)
                             ->get('*');
         

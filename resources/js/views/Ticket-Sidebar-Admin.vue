@@ -3,6 +3,13 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
+                    <router-link to="/ticket/admin/dashboard" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="" exact>
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <b>DASHBOARD</b>
+                        <!-- <a v-on:click="doSomething">Logout </a> -->
+                    </router-link>
                     <router-link to="/ticket/admin/status" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="" exact>
                         <div class="sb-nav-link-icon">
                             <!-- <i class="fas fa-arrow-right"></i> -->

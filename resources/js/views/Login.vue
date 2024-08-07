@@ -115,7 +115,8 @@
                         this.$router.push('/ticket/superadmin/status');
                     } 
                     else if(response.token_scope == 'admin'){
-                        this.$router.push('/ticket/admin/status');
+                        // this.$router.push('/ticket/admin/status');
+                        this.$router.push('/ticket/admin/dashboard');
                     } 
                     else if(response.token_scope == 'staff'){
                         this.$router.push('/ticket/staff/status');

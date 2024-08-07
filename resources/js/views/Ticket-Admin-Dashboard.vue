@@ -3,10 +3,19 @@
     <h1 class="mt-4 admin-header-title" >DASHBOARD</h1>
     <div class="breakcrumbs mt-3">
         Home > <span class="admin-sub-header-title"> DASHBOARD</span>
+        
+    </div>
+    <div class="row mt-4">
+        <!-- <audio ref="audio" autoplay>
+            <source src="/sound/notif_sound.mp3" type="audio/mpeg">
+        </audio> -->
+        <audio controls ref="audio">
+            <!-- <source src="https://www.bensound.com/bensound-music/bensound-moose.mp3"> -->
+            <source src="/sound/notif_sound.mp3">
+        </audio>
     </div>
     <div class="row mt-4">
         <div class="col-xl-12">
-
                 <div class="row">
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
@@ -108,13 +117,14 @@
         </div>
     </div>
 
+
+
   </div>
 </template>
 
 
 <script>
     import * as ticket_service from '../services/ticket_service';
-    import * as authServices from '../services/auth_service';
 
     export default {
         name: 'employee',
@@ -129,6 +139,7 @@
                 assignedTicketData:{},
                 totalAll: '',
                 totalNew: '',
+                new: '',
                 totalAssigned: '',
                 totalinProgress: '',
                 totalCompleted: '',
@@ -140,9 +151,31 @@
         },
         mounted() {
             this.countData();
+            this.countNew();
         },
         methods: {
-           
+            countNew: async function() {
+                        // this.$refs.audio.play()
+                // const response_getUserData = await ticket_service.getUserData();
+                // try{
+                //     const newTix = await ticket_service.countNew_All();
+
+                //     this.new = newTix.data;
+                //     if (this.new > 0){
+                //         // this.$refs.audio.play()
+                //     }
+                // } catch(error) {
+                //     this.flashMessage.error({
+                //     message: 'Some error occured! Please try again.',
+                //     time: 5000
+                //     });
+                // }
+
+                // const audio = document.querySelector("audio");
+                // console.log(audio);
+                audio.play();
+            },
+
             countData: async function() {
 
                 const response_getUserData = await ticket_service.getUserData();

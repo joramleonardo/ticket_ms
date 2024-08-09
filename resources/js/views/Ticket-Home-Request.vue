@@ -541,11 +541,8 @@ export default {
             let getHours = date.getHours();
             let getMinutes = date.getMinutes();
             let getSeconds = date.getSeconds();
-            // Check whether AM or PM
             let newformat = getHours >= 12 ? 'PM' : 'AM';
-            // Find current hour in AM-PM Format
             getHours = getHours % 12;
-            // To display "0" as "12"
             getHours = getHours ? getHours : 12;
             getMinutes = getMinutes < 10 ? '0' + getMinutes : getMinutes;
 			let date_ticketCreatedComplete = monthName + " " + currentDay + " " + currentYear + " " + getHours + ":" + getMinutes + " " + newformat;
@@ -565,7 +562,7 @@ export default {
 			const empID = await ticket_service.validateEmpID(this.ticketData.employee_code);
 			let _govType = empID.data;
 
-            if (_govType == 1){ // 1 if STII Employee
+            if (_govType == 1){
                 try {
                     const empID_1 = await ticket_service.getEmpDetails(this.ticketData.employee_code);
                     this.ticketDetails = empID_1.data[0];
@@ -592,7 +589,7 @@ export default {
                     } 
 
                     let formData_ticketData = new FormData();
-                    formData_ticketData.append('date1', currentDateTime); //date requested
+                    formData_ticketData.append('date1', currentDateTime); 
                     formData_ticketData.append('employee_code', this.ticketData.employee_code);
                     formData_ticketData.append('sex', this.empSex);
                     formData_ticketData.append('concerned_division', "OD-MISPS");
@@ -634,7 +631,7 @@ export default {
                 });
                 console.log("Ticket Submitted Successfully!");
             }
-            else if (_govType == 0){ // 0 employee id not found; not STII employee
+            else if (_govType == 0){
                 this.flashMessage.warning({
                     message: 'Employee ID does not exist! Please enter a valid Employee ID'
                 });

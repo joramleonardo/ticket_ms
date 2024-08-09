@@ -9,10 +9,9 @@
         <!-- <audio ref="audio" autoplay>
             <source src="/sound/notif_sound.mp3" type="audio/mpeg">
         </audio> -->
-        <audio controls ref="audio">
-            <!-- <source src="https://www.bensound.com/bensound-music/bensound-moose.mp3"> -->
-            <source src="/sound/notif_sound.mp3">
-        </audio>
+        <!-- <audio src="/sound/notif_sound.mp3" controls id="sound">
+        </audio> -->
+         <!-- <input type="text" value="http://127.0.0.1:8000/sound/notif_sound.mp3" id="myInput" disabled style="display:none"> -->
     </div>
     <div class="row mt-4">
         <div class="col-xl-12">
@@ -147,33 +146,41 @@
                 totalinProgress_staff: '',
                 totalCompleted_staff: '',
                 name: '',
+                thisAudio: ''
                 }
         },
         mounted() {
             this.countData();
-            this.countNew();
+            this.playAudio();
+
+            this.$nextTick(() => {
+                const button = document.createElement('button');
+                button.textContent = 'Play Audio';
+                button.onclick = this.playAudio;
+                document.body.appendChild(button);
+            });
         },
         methods: {
-            countNew: async function() {
-                        // this.$refs.audio.play()
-                // const response_getUserData = await ticket_service.getUserData();
-                // try{
-                //     const newTix = await ticket_service.countNew_All();
+            playAudio() {
+                const audio = new Audio('../sound/notif_sound.mp3');
+                audio.play().catch(error => {
+                    console.error('Audio playback failed:', error);
+                });
+            },
 
-                //     this.new = newTix.data;
-                //     if (this.new > 0){
-                //         // this.$refs.audio.play()
-                //     }
-                // } catch(error) {
-                //     this.flashMessage.error({
-                //     message: 'Some error occured! Please try again.',
-                //     time: 5000
-                //     });
-                // }
+            initWebSocket(){
+                // Create WebSocket connection.
+                const socket = new WebSocket("ws://10.10.140.36:6000");
 
-                // const audio = document.querySelector("audio");
-                // console.log(audio);
-                audio.play();
+                // Connection opened
+                socket.addEventListener("open", (event) => {
+                socket.send("Hello Server!");
+                });
+
+                // Listen for messages
+                socket.addEventListener("message", (event) => {
+                console.log("Message from server ", event.data);
+                });
             },
 
             countData: async function() {

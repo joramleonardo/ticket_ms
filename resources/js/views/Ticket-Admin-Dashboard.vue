@@ -23,11 +23,11 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:rgb(23, 162, 184)">
-                                            Pending</div>
+                                            Pending TICKETS</div>
                                         <div class="h3 mb-0 font-weight-bold text-gray-800">{{this.totalNew}}</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        <i class="fas fa-plus square fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -40,11 +40,12 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:rgb(255, 193, 7)">
-                                            In Progress</div>
+                                            In Progresss TICKETS</div>
                                         <div class="h3 mb-0 font-weight-bold text-gray-800">{{this.totalinProgress_staff}}</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+
+                                        <i class="fas fa-spinner fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -57,11 +58,11 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:rgb(40, 167, 69)">
-                                            Completed</div>
+                                            Completed TICKETS</div>
                                         <div class="h3 mb-0 font-weight-bold text-gray-800">{{this.totalCompleted_staff}}</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        <i class="fas fa-check-square fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -73,11 +74,11 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:rgb(43, 88, 118)"> 
-                                            Closed</div>
+                                            TOTAL TICKETS</div>
                                         <div class="h3 mb-0 font-weight-bold text-gray-800">{{this.totalAll}}</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        <i class="fas fa-th list fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +138,7 @@
                 },
                 assignedTicketData:{},
                 totalAll: '',
-                totalNew: '',
+                totalNew: 0,
                 new: '',
                 totalAssigned: '',
                 totalinProgress: '',
@@ -151,14 +152,15 @@
         },
         mounted() {
             this.countData();
-            this.playAudio();
 
-            this.$nextTick(() => {
-                const button = document.createElement('button');
-                button.textContent = 'Play Audio';
-                button.onclick = this.playAudio;
-                document.body.appendChild(button);
-            });
+            
+
+            // this.$nextTick(() => {
+            //     const button = document.createElement('button');
+            //     button.textContent = 'Play Audio';
+            //     button.onclick = this.playAudio;
+            //     document.body.appendChild(button);
+            // });
         },
         methods: {
             playAudio() {
@@ -200,7 +202,16 @@
                     this.totalinProgress_staff = t2.data;
                     this.totalCompleted_staff = t3.data;
 
+                    if (this.totalNew === 0){
+                        console.log("No New Ticket");
+                    }
+                    else{
+                        this.playAudio();
+                    }
+
                     const response_set_refCode = await ticket_service.setDisplayName(this.displayName);
+
+
                     const response = await ticket_service.getAllTicketDetails_Approved_Assigned(this.displayName);
                     this.ticket = response.data;
                     this.totalRows = this.ticket.length;

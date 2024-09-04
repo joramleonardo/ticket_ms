@@ -93,6 +93,7 @@ Route::post('addTicket', 'TicketController@addTicket');
 Route::post('addTicket_internal', 'TicketController@addTicket_internal');
 Route::post('addTicket_external', 'TicketController@addTicket_external');
 Route::post('addTicketStatus_Pending', 'TicketController@addTicketStatus_Pending');
+Route::post('addTicketStatus_Pending_STARBOOKS', 'TicketController@addTicketStatus_Pending_STARBOOKS');
 
 Route::post('addActivityLog', 'TicketController@addActivityLog');
 Route::post('/loadActivityLog/{id}', 'TicketController@loadActivityLog');

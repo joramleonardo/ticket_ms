@@ -417,6 +417,7 @@ export default {
                 { value: 'Etienne Wayne Amparado', text: 'Etienne Wayne Amparado' },
                 { value: 'Mc Gyver Basaya', text: 'Mc Gyver Basaya' },
                 { value: 'Jomar Rabanera', text: 'Jomar Rabanera' },
+                { value: 'John Michael Cagadas', text: 'John Michael Cagadas' },
             ],
             options_priority: [
                 { value: null, text: 'Please select priority level', disabled: true},

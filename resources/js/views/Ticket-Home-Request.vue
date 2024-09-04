@@ -4,7 +4,7 @@
         <!-- Navigation-->
         <div class="navbar navbar-expand-lg bg-dark text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <button class="navbar-toggler text-uppercase font-weight-bold bg-success text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <button style="background: #ffc107  !important; color:white" class="navbar-toggler text-uppercase font-weight-bold text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
@@ -254,17 +254,23 @@
                                     <span style="font-size: 12px; color: red; font-style: italic; ">* Required Fields</span>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 col-lg-6 mb-0">
+                                    <div class="col-md-3 col-lg-3 mb-0">
                                         <b-form-group class="group" id="form_externalEventDate">
                                             <label for="entryDate" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Entry Date:</label>
                                             <b-form-input pattern="\d{1,2}/\d{1,2}/\d{4}" required v-model="ticketData.entryDate" id="entryDate" type="date" class="input" style="text-transform:uppercase; background: #fff; border: 1px solid #ced4da !important; color: black"></b-form-input>
                                         </b-form-group>
                                     </div>
-                                    <div class="col-md-6 col-lg-6 mb-0">
+                                    <div class="col-md-3 col-lg-3 mb-0">
                                         <b-form-group class="group" id="form_externalName">
                                             <label for="externalName" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Support Type:</label>
                                             <b-form-select v-model="ticketData.softwareType" :options="drop_software_sb"></b-form-select>
                                         </b-form-group>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 mb-0">
+                                        <b-form-group class="group" id="form_employeeId">
+                                            <label for="externalAgency" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Agency:</label>
+                                            <b-form-input required v-model="ticketData.externalAgency" id="externalAgency" name="externalAgency" type="text" class="input" style="text-transform:uppercase; background: #fff; border: 1px solid #ced4da !important; color: black"></b-form-input>
+                                        </b-form-group> 
                                     </div>
                                 </div>
                                 <div class="row">
@@ -296,9 +302,9 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <b-form-group class="group" id="form_employeeId">
-                                            <label for="externalAgency" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Agency:</label>
-                                            <b-form-input required v-model="ticketData.externalAgency" id="externalAgency" name="externalAgency" type="text" class="input" style="text-transform:uppercase; background: #fff; border: 1px solid #ced4da !important; color: black"></b-form-input>
-                                        </b-form-group>   
+                                            <label for="sex" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Attended By:</label>
+                                            <b-form-select v-model="ticketData.attended_by" :options="drop_attendedBy"></b-form-select>
+                                        </b-form-group> 
                                     </div>
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <b-form-group class="group" id="form_employeeId">
@@ -416,7 +422,14 @@ export default {
             ],
 			drop_software_sb: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'Installation', 
 																		'Assistance'],
-            drop_assistedBy_sb: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'None', 
+            drop_assistedBy_sb: [{ text: '(SELECT HERE)', value: null, disabled: true }, 
+                                                                        'None',
+																		'Mc Gyver Basaya', 
+																		'John Michael Cagadas', 
+																		'Jomar Rabanera'],
+            drop_attendedBy: [{ text: '(SELECT HERE)', value: null, disabled: true }, 
+																		'Mc Gyver Basaya', 
+																		'John Michael Cagadas', 
 																		'Jomar Rabanera'],
             variants: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark'],
             headerBgVariant: 'dark',
@@ -839,27 +852,54 @@ export default {
 
             try {
                 let formData_ticketData = new FormData();
-                formData_ticketData.append('reference_code', this.ref_code);
-                formData_ticketData.append('ticket_created', date_ticketCreatedComplete2);
-                formData_ticketData.append('sex', this.ticketData.sex);
-                formData_ticketData.append('internal_external', "External");
-                formData_ticketData.append('externalName', this.ticketData.fName + " " + this.ticketData.lName);
-                formData_ticketData.append('empEmail', this.ticketData.email);
-                formData_ticketData.append('externalAgency', this.ticketData.externalAgency);
-                formData_ticketData.append('date1', date_ticketCreatedComplete2);
-                formData_ticketData.append('clientNote', this.ticketData.clientNote);
-                formData_ticketData.append('supportType', "Technical Support");
-                formData_ticketData.append('mode', "Online Remote");
+                        formData_ticketData.append('reference_code', this.ref_code);
+                        formData_ticketData.append('ticket_created', date_ticketCreatedComplete2);
+                        formData_ticketData.append('sex', this.ticketData.sex);
+                        formData_ticketData.append('internal_external', "External");
+                        formData_ticketData.append('externalName', this.ticketData.fName + " " + this.ticketData.lName);
+                        formData_ticketData.append('empEmail', this.ticketData.email);
+                        formData_ticketData.append('externalAgency', this.ticketData.externalAgency);
+                        formData_ticketData.append('date1', date_ticketCreatedComplete2);
+                        formData_ticketData.append('clientNote', this.ticketData.clientNote);
+                        formData_ticketData.append('supportType', "Technical Support");
+                        formData_ticketData.append('mode', "Online Remote");
 
-                this.ticketData_update.reference_code = this.ref_code;
+                        console.log("aa");
 
-                let formData_ticketDataStatus = new FormData();
-                formData_ticketDataStatus.append('status', 'New');
-                formData_ticketDataStatus.append('entry_date', date_ticketCreated);
-                formData_ticketDataStatus.append('reference_code', this.ref_code);
+               
 
-                const response_ticketData = await ticket_service.technical_addTicket_starbooks(formData_ticketData);
-                const response_ticketDataStatus = await ticket_service.addTicketStatus_Pending(formData_ticketDataStatus);
+                        this.ticketData_update.reference_code = this.ref_code;
+
+                        let formData_ticketDataStatus = new FormData();
+                        formData_ticketDataStatus.append('reference_code', this.ref_code);
+                        formData_ticketDataStatus.append('status', 'Completed');
+                        formData_ticketDataStatus.append('entry_date', date_ticketCreated);
+                        formData_ticketDataStatus.append('assignedStaff', this.ticketData.attended_by);
+                        formData_ticketDataStatus.append('approved_by', "Mc Gyver Basaya");
+                        formData_ticketDataStatus.append('attended_by', this.ticketData.attended_by);
+                        formData_ticketDataStatus.append('priority', "Low");
+                        formData_ticketDataStatus.append('ticket_approved', date_ticketCreatedComplete2);
+                        formData_ticketDataStatus.append('ticket_attended', date_ticketCreatedComplete2);
+                        formData_ticketDataStatus.append('problem_that_needed_support', this.ticketData.clientNote);
+                        formData_ticketDataStatus.append('actions_taken', this.ticketData.actions_taken);
+                        formData_ticketDataStatus.append('remarks', "-");
+                        formData_ticketDataStatus.append('feedback_status', "Pending");
+                        formData_ticketDataStatus.append('rating_status', "Pending");
+                        formData_ticketDataStatus.append('date2', date_ticketCreatedComplete2); //date requested
+                        formData_ticketDataStatus.append('natureOfSupport', "Software");
+                        formData_ticketDataStatus.append('hardware', "-");
+                        formData_ticketDataStatus.append('software', this.ticketData.softwareType);
+                        formData_ticketDataStatus.append('supportType_', "Technical Support");
+                        formData_ticketDataStatus.append('mode_', "Online Remote");
+                        formData_ticketDataStatus.append('assisted_by_1', this.ticketData.assisted_by_1);
+                        formData_ticketDataStatus.append('assisted_by_2', "None");
+                        formData_ticketDataStatus.append('clientNote_', this.ticketData.clientNote);
+                        formData_ticketDataStatus.append('type', "Starbooks related");
+                        formData_ticketDataStatus.append('ticket_completed', date_ticketCreatedComplete2);
+
+
+                        const response_ticketData = await ticket_service.technical_addTicket_starbooks(formData_ticketData);
+                        const response_ticketDataStatus = await ticket_service.addTicketStatus_Pending_STARBOOKS(formData_ticketDataStatus);
             }
             catch (error) {
                 this.flashMessage.warning({

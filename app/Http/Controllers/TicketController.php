@@ -71,6 +71,37 @@ class TicketController extends Controller
         $data->save();
     }
 
+    public function addTicketStatus_Pending_STARBOOKS(Request $request){
+        $data = new TicketStatus(); // insert into table ticket_status
+
+        $data->reference_code = $request->reference_code;
+        $data->status = $request->status;
+        $data->entry_date = $request->entry_date;
+        $data->assignedStaff = $request->assignedStaff;
+        $data->approved_by = $request->approved_by;
+        $data->attended_by = $request->attended_by;
+        $data->priority = $request->priority;
+        $data->ticket_approved = $request->ticket_approved;
+        $data->ticket_attended = $request->ticket_attended;
+        $data->problem_that_needed_support = $request->problem_that_needed_support;
+        $data->actions_taken = $request->actions_taken;
+        $data->remarks = $request->remarks;
+        $data->feedback_status = $request->feedback_status;
+        $data->rating_status = $request->rating_status;
+        $data->date2 = $request->date2;
+        $data->natureOfSupport = $request->natureOfSupport;
+        $data->hardware = $request->hardware;
+        $data->software = $request->software;
+        $data->supportType_ = $request->supportType_;
+        $data->mode_ = $request->mode_;
+        $data->assisted_by_1 = $request->assisted_by_1;
+        $data->assisted_by_2 = $request->assisted_by_2;
+        $data->clientNote_ = $request->clientNote_;
+        $data->type = $request->type;
+        $data->ticket_completed = $request->ticket_completed;
+        $data->save();
+    }
+
     public function addActivityLog(Request $request){
         $data = new ActivityLog(); // insert into table tblactivitylog
 
@@ -216,6 +247,7 @@ class TicketController extends Controller
         $data->supportType = $request->supportType;
         $data->mode = $request->mode;
         $data->save();
+
     }
 
     public function technical_addTicketStatus_starbooks(Request $request){

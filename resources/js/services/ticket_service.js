@@ -24,6 +24,10 @@ export function addTicketStatus_Pending(data){
     return httpFile().post('/addTicketStatus_Pending', data);
 }
 
+export function addTicketStatus_Pending_STARBOOKS(data){
+    return httpFile().post('/addTicketStatus_Pending_STARBOOKS', data);
+}
+
 export function addActivityLog(data){
     return httpFile().post('/addActivityLog', data);
 }

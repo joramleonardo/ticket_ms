@@ -3,10 +3,10 @@
     <div id="home-top">
             <div class="navbar navbar-expand-lg bg-dark text-uppercase fixed-top">
                 <div class="container">
-                    <button class="navbar-toggler text-uppercase font-weight-bold bg-warning text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        Menu
-                        <i class="fas fa-bars"></i>
-                    </button>
+                <button style="background: #ffc107  !important; color:white" class="navbar-toggler text-uppercase font-weight-bold text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item mx-0 mx-lg-1">
@@ -38,7 +38,7 @@
                                 </a>
                             </li> -->
                         </ul>
-                    </div>
+                    </div>  
                 </div>
             </div>
             <header class="masthead text-white text-center" style="background-color: #004A98 !important">

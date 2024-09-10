@@ -108,7 +108,7 @@
                                         <div class="col-md-6 col-lg-6 mb-0">
                                             <b-form-group class="group" id="form_employeeId">
                                                 <label for="employee_code" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Request Type:</label>
-                                                <b-form-select v-model="ticketData.supportType" :options="options_supportType"></b-form-select>
+                                                <b-form-select v-model="selected_supportType" :options="options_supportType"></b-form-select>
                                             </b-form-group> 
                                         </div>
                                     </div>
@@ -336,7 +336,7 @@
                 </span>
                 <input type="text" v-model="this.ticketData_update.reference_code" id="myInput" disabled style="color:black; font-weight: bold; ">
             </div>
-            <b-button class="mt-3" variant="info" block @click="copyReferenceCode()">Copy</b-button>
+            <!-- <b-button class="mt-3" variant="info" block @click="copyReferenceCode()">Copy</b-button> -->
             <b-button class="mt-3" variant="danger" block @click="closeReferenceCode()">Close</b-button>
         </b-modal>
         <b-modal id="showErrorModal" no-close-on-backdrop no-close-on-esc hide-header-close ref="showErrorModal" hide-footer title="Employee ID does not exist! Please enter a valid Employee ID">
@@ -403,6 +403,7 @@ export default {
     data() {
         return {
             selected: null,
+            selected_supportType: 'Technical Support',
             options_supportType: [
                 { value: null, text: 'Please select an option', disabled: true },
                 { value: 'Technical Support', text: 'Technical Support' },
@@ -595,10 +596,10 @@ export default {
 
                     if (this.empEmail === ""){
                         this.empEmail = "-";
-                        console.log("No Email");
+                        // console.log("No Email");
                     } else if (this.empEmail != ""){
                         this.empEmail = this.empEmail;
-                        console.log(this.empEmail);
+                        // console.log(this.empEmail);
                     } 
 
                     let formData_ticketData = new FormData();
@@ -608,7 +609,7 @@ export default {
                     formData_ticketData.append('concerned_division', "OD-MISPS");
                     formData_ticketData.append('concerned_section', "ITU");
                     formData_ticketData.append('clientNote', this.ticketData.clientNote);
-                    formData_ticketData.append('supportType', this.ticketData.supportType);
+                    formData_ticketData.append('supportType', this.selected_supportType);
 
                     formData_ticketData.append('reference_code', this.ref_code);
                     formData_ticketData.append('ticket_created', date_ticketCreatedComplete);
@@ -633,7 +634,7 @@ export default {
                     this.flashMessage.warning({
                         message: 'Please fill out the form!'
                     });
-                    console.log("Please fill out the form!");
+                    // console.log("Please fill out the form!");
                 }
 
                 this.$refs.requestModalForm_internal.hide()
@@ -642,13 +643,13 @@ export default {
                 this.flashMessage.success({
                     message: 'Ticket Submitted Successfully!'
                 });
-                console.log("Ticket Submitted Successfully!");
+                // console.log("Ticket Submitted Successfully!");
             }
             else if (_govType == 0){
                 this.flashMessage.warning({
                     message: 'Employee ID does not exist! Please enter a valid Employee ID'
                 });
-                console.log("Employee ID does not exist! Please enter a valid Employee ID");
+                // console.log("Employee ID does not exist! Please enter a valid Employee ID");
                 
                 this.$refs.showErrorModal.show() 
                     
@@ -759,7 +760,7 @@ export default {
                 this.flashMessage.warning({
                     message: 'Please fill out the form!'
                 });
-                console.log("Please fill out the form!");
+                // console.log("Please fill out the form!");
             }
             
 
@@ -783,7 +784,7 @@ export default {
             this.flashMessage.success({
                     message: 'Ticket Submitted Successfully!'
             });
-            console.log("Ticket Submitted Successfully!");
+            // console.log("Ticket Submitted Successfully!");
         },
         createTicket_starbooks: async function() {
 			const date = new Date();
@@ -864,7 +865,7 @@ export default {
                         formData_ticketData.append('supportType', "Technical Support");
                         formData_ticketData.append('mode', "Online Remote");
 
-                        console.log("aa");
+                        // console.log("aa");
 
                
 
@@ -905,7 +906,7 @@ export default {
                 this.flashMessage.warning({
                     message: 'Please fill out the form!'
                 });
-                console.log("Please fill out the form!");
+               
             }
             
 
@@ -925,18 +926,13 @@ export default {
             this.flashMessage.success({
                 message: 'Ticket Submitted Successfully!'
             });
-            console.log("Ticket Submitted Successfully!");
+            // console.log("Ticket Submitted Successfully!");
         },
 		copyReferenceCode(){
 			var copyText = document.getElementById("myInput");
             let ref_ = copyText.value;
-			// copyText.select();
-			// copyText.setSelectionRange(0, 99999); 
-			// navigator.clipboard.writeText(copyText.value);
-
-                const textarea = document.createElement('textarea');
+			const textarea = document.createElement('textarea');
                 textarea.value = ref_;
-                // console.log("aa " + textarea.value);
                 //hide textarea from UI (trick 🙂 )
                 textarea.style.position = 'fixed';
                 textarea.style.left = '-9999px';
@@ -954,7 +950,7 @@ export default {
             this.flashMessage.success({
                 message: 'Reference Code Copied Successfully!'
             });
-            console.log("Reference Code Copied Successfully!");
+
 		},
 		closeReferenceCode(){
             window.location.reload();

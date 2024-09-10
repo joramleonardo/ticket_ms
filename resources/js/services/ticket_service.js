@@ -32,8 +32,16 @@ export function addActivityLog(data){
     return httpFile().post('/addActivityLog', data);
 }
 
+export function addRemarksLog(data){
+    return httpFile().post('/addRemarksLog', data);
+}
+
 export function loadActivityLog(id){
     return httpFile().post(`/loadActivityLog/${id}`);
+}
+
+export function loadRemarksLog(id){
+    return httpFile().post(`/loadRemarksLog/${id}`);
 }
 
 export function technical_addTicket_internal(data){

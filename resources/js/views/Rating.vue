@@ -31,13 +31,13 @@
                                 </router-link>
                             </a>
                         </li>
-                        <li class="nav-item mx-0 mx-lg-1">
+                        <!-- <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" href="">
                                 <router-link to="/login" style="color: #fff !important;">
                                 Technical
                                 </router-link>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -534,12 +534,12 @@
             content: '★ ';
         }
         .rate > input:checked ~ label {
-            color: #ED262A;    
+            color: #ffe138;    
             /* color: #c59b08; */
         }
         .rate:not(:checked) > label:hover,
         .rate:not(:checked) > label:hover ~ label {
-            color: #ED262A;  
+            color: #ffe138;  
             /* color: #c59b08; */
         }
         .rate > input:checked + label:hover,
@@ -547,7 +547,7 @@
         .rate > input:checked ~ label:hover,
         .rate > input:checked ~ label:hover ~ label,
         .rate > label:hover ~ input:checked ~ label {
-            color: #ED262A;
+            color: #ffe138;
             /* color: #c59b08; */
         }
 </style>
@@ -836,7 +836,7 @@ export default {
             }
 
             this.flashMessage.success({
-                message: 'Link Copied Successfully!'
+                message: 'Link Copied Successfully! Open new browser and paste the link to answer CSM Form.'
             });
         },
     }

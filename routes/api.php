@@ -96,7 +96,9 @@ Route::post('addTicketStatus_Pending', 'TicketController@addTicketStatus_Pending
 Route::post('addTicketStatus_Pending_STARBOOKS', 'TicketController@addTicketStatus_Pending_STARBOOKS');
 
 Route::post('addActivityLog', 'TicketController@addActivityLog');
+Route::post('addRemarksLog', 'TicketController@addRemarksLog');
 Route::post('/loadActivityLog/{id}', 'TicketController@loadActivityLog');
+Route::post('/loadRemarksLog/{id}', 'TicketController@loadRemarksLog');
 
 Route::post('technical_addTicket_internal', 'TicketController@technical_addTicket_internal');
 Route::post('technical_addTicketStatus_Pending', 'TicketController@technical_addTicketStatus_Pending');

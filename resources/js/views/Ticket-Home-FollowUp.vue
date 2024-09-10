@@ -99,30 +99,66 @@
                             <span  v-for="(event, index) in ticketTracking" :key="index">
                             <li class="rb-item" ng-repeat="itembx">
                                 <div class="timestamp">
-                                    {{event.activity_date}}
+                                    {{new Date(event.created_at).toLocaleDateString("en-US", { weekday: 'long',year: 'numeric', month: 'long',day: 'numeric' })}}
+                                    
                                 </div>
                                 <div class="item-title">
                                     <span v-if="event.activity_id === '3'">
-                                        Ticket has been created <span style="font-weight: 700"> [Reference No: {{event.ticket_id}}] </span>
-                                        <br>
-                                        {{event.problem_that_needed_support}}
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
+                                        Ticket has been created <span style="font-weight: 700;"> [Reference No: {{event.ticket_id}}] </span> <br>
+                                        Submitted by: <span style="font-weight: 700"> [{{event.externalName}}] </span> <br>
+                                        Problem that needed support: <span style="font-weight: 700"> [{{event.clientNote}}] </span>
+                                        <!-- {{event.problem_that_needed_support}} -->
                                     </span>
                                     <span v-if="event.activity_id === '4'">
-                                        Ticket has been assigned <span style="font-weight: 700"> [Assigned to: {{event.assignedStaff}}] </span>
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
+                                        Ticket has been assigned <span style="font-weight: 700"> [Assigned to: {{event.assignedStaff}}] </span> 
                                     </span>
                                     <span v-if="event.activity_id === '5'">
-                                        Ticket has been attended
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
+                                        Ticket has been attended <span style="font-weight: 700"> [Attended by: {{event.assignedStaff}}] </span> 
                                     </span>
                                     <span v-if="event.activity_id === '6'">
-                                        Ticket has been completed
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
+                                        Ticket has been completed <br>
+                                        Remarks: <span style="font-weight: 700"> [{{event.remarks}}] </span> <br><br>
+                                        <!-- {{event.id}}<br>
+                                        {{event.ticket_id}}<br>
+                                        {{event.internal_external}} -->
+                                        <router-link target="_blank" :to="{name: 'rating', params: {id: event.id, type: event.internal_external}}">
+                                            <b-button size="sm" class="mr-1 jkl-btn-view btn-submit-rating">Click here to Submit Rating</b-button>
+                                        </router-link>
                                     </span>
                                     <span v-if="event.activity_id === '7'">
-                                        Added a remarks
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
+                                        Remarks: <span style="font-weight: 700">[{{event.remarks_data}}]</span>
+                                        <!-- <span v-for="(eventt, indexx) in remarksTracking" :key="indexx">
+                                            <span style="font-weight: 400; font-style:italic; font-size: 14px">{{eventt.remarks_date}} </span>
+                                            <br>
+                                            <span style="font-weight: 700">[{{eventt.remarks_data}}]</span>
+                                            <br>
+                                        </span> -->
                                     </span>
                                     <span v-if="event.activity_id === '8'">
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
                                         Ticket details has been updated
                                     </span>
                                     <span v-if="event.activity_id === '9'">
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
                                         Rating has been submitted
                                     </span>
                                 </div>
@@ -814,6 +850,7 @@ export default {
             note_:'',
 			ticket: [],
             ticketTracking: [],
+            remarksTracking: [],
 			ticketData:{
 				status:'',
 				reference_code:''
@@ -1000,7 +1037,7 @@ export default {
                     this.flashMessage.warning({
                         message: 'Please fill out the form!'
                     });
-                    console.log("Please fill out the form!");
+                    // console.log("Please fill out the form!");
                 }
 
                 this.$refs.requestModalForm_internal.hide()
@@ -1009,13 +1046,13 @@ export default {
                 this.flashMessage.success({
                     message: 'Ticket Submitted Successfully!'
                 });
-                console.log("Ticket Submitted Successfully!");
+                // console.log("Ticket Submitted Successfully!");
             }
             else if (_govType == 0){ // 0 employee id not found; not STII employee
                 this.flashMessage.warning({
                     message: 'Employee ID does not exist! Please enter a valid Employee ID'
                 });
-                console.log("Employee ID does not exist! Please enter a valid Employee ID");
+                // console.log("Employee ID does not exist! Please enter a valid Employee ID");
                 
                 this.$refs.showErrorModal.show() 
                     
@@ -1104,7 +1141,7 @@ export default {
                 this.flashMessage.warning({
                     message: 'Please fill out the form!'
                 });
-                console.log("Please fill out the form!");
+                // console.log("Please fill out the form!");
             }
             this.$refs.requestModalForm_external.hide()
             this.$refs.showReferenceCode.show() 
@@ -1115,7 +1152,7 @@ export default {
             this.flashMessage.success({
                     message: 'Ticket Submitted Successfully!'
             });
-            console.log("Ticket Submitted Successfully!");
+            // console.log("Ticket Submitted Successfully!");
         },
 		copyReferenceCode(){
 			var copyText = document.getElementById("myInput");
@@ -1126,7 +1163,7 @@ export default {
             this.flashMessage.success({
                 message: 'Reference Code Copied Successfully!'
             });
-            console.log("Reference Code Copied Successfully!");
+            // console.log("Reference Code Copied Successfully!");
 		},
 		closeReferenceCode(){
             window.location.reload();
@@ -1145,55 +1182,18 @@ export default {
             document.getElementById("status").style.display = "block";
             document.getElementById("no_status").style.display = "none";
 
-            console.log("Hey");
 			let ref_code = this.ticketData.referenceCode;
-            console.log(ref_code);
+
             const refCodeDetails = await ticket_service.loadActivityLog(ref_code);
             this.ticketTracking = refCodeDetails.data;
-            console.log(this.ticketTracking);
+            // console.log(this.ticketTracking);
+            
+            const remarksDetails = await ticket_service.loadRemarksLog(ref_code);
+            this.remarksTracking = remarksDetails.data;
+            // console.log(this.remarksTracking);
 
-			// let ref_code = this.ticketData.referenceCode;
-            // const refCode = await ticket_service.validateRefCode(ref_code);
-            // let _refCode = refCode.data
-            // const refCodeDetails = await ticket_service.validateRefCodeDetails(ref_code);
-            // let _refCodeDetails = refCodeDetails.data[0];
-            // this.internal_external = _refCodeDetails.internal_external;
 
-            // let username = 1;
-            // let activity_id = 2;
-            // let activity_date = 3;
-            // let ticket_id = 4;
 
-            // if (_refCode == 1){
-            //     try{
-            //         const response = await ticket_service.getTicketStatus(ref_code);
-                    
-            //         let formData_ticketData = new FormData();
-            //         formData_ticketData.append('username', username);
-            //         formData_ticketData.append('activity_id', activity_id);
-            //         formData_ticketData.append('activity_date', activity_date);
-            //         formData_ticketData.append('ticket_id', ticket_id);
-            //         const response_ticketData = await ticket_service.addActivityLog(formData_ticketData);
-
-            //         this.ticket = response.data;
-            //     } catch(error) {
-            //         this.flashMessage.error({
-            //         message: 'Some error occured! Please try again.',
-            //         time: 5000
-            //         });
-            //     }
-                
-            //     if (this.internal_external === "Internal"){
-            //         this.$refs['showDetails_internal'].show();
-            //     }else if (this.internal_external === "External"){
-            //         this.$refs['showDetails_external'].show();
-            //     }
-            // }
-            // else if (_refCode == 0){
-            //     this.flashMessage.warning({
-            //         message: 'Reference Code does not exist! Please enter a valid Reference Code'
-            //     });
-            // }
 
         }
     }

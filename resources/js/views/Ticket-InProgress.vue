@@ -144,14 +144,14 @@
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <b-form-group class="group" id="optionAssistedBy">
                                             <label required for="assisted_by_1" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Assisted by:<span style="font-style: italic; font-size: 10px; text-transform: none;">  (Please select below... )</span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_1" v-model="assignedTicketData.assisted_by_1"></b-form-select>
+                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_1" v-model="selected1"></b-form-select>
                                         </b-form-group>
                                     </div>
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <b-form-group class="group">
                                         <b-form-group class="group" id="optionAssistedBy">
                                             <label required for="assisted_by_2" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Assisted by:<span style="font-style: italic; font-size: 10px; text-transform: none;">  (Please select below... )</span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_2" v-model="assignedTicketData.assisted_by_2"></b-form-select>
+                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_2" v-model="selected2"></b-form-select>
                                         </b-form-group>
                                         </b-form-group>
                                     </div>
@@ -252,14 +252,16 @@
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <b-form-group class="group" id="optionAssistedBy">
                                             <label required for="assisted_by_1" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Assisted by:<span style="font-style: italic; font-size: 10px; text-transform: none;">  (Please select below... )</span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_1" v-model="assignedTicketData.assisted_by_1"></b-form-select>
+                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_1" v-model="selected1"></b-form-select>
+                                    
                                         </b-form-group>
                                     </div>
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <b-form-group class="group">
                                         <b-form-group class="group" id="optionAssistedBy">
                                             <label required for="assisted_by_2" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Assisted by:<span style="font-style: italic; font-size: 10px; text-transform: none;">  (Please select below... )</span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_2" v-model="assignedTicketData.assisted_by_2"></b-form-select>
+                                            <b-form-select style="background-color: rgb(239 239 239);" :options="drop_assistedBy"  id="assisted_by_2" v-model="selected2"></b-form-select>
+                                        
                                         </b-form-group>
                                         </b-form-group>
                                     </div>
@@ -495,7 +497,7 @@
                             <div class="">
                                 <b-form-group class="group" id="groupRemarks">
                                     <label for="remarks" class="label" style="color:black; font-weight: bold">Leave a note here</label>
-                                    <b-form-textarea id="tech_remarks"  v-model="assignedTicketDataTechRemarks_update.tech_remarks" placeholder="Enter remarks here..." rows="3" max-rows="3" style="background: #fff !important; color: black"></b-form-textarea>
+                                    <b-form-textarea id="tech_remarks"  v-model="assignedTicketDataTechRemarks.tech_remarks" placeholder="Enter remarks here..." rows="3" max-rows="3" style="background: #fff !important; color: black"></b-form-textarea>
                                 </b-form-group>
                             </div>
                         </div>
@@ -546,6 +548,7 @@ export default {
             assignedTicketData:{},
             assignedTicketData_update:{},
             assignedTicketDataTechRemarks_update:{},
+            assignedTicketDataTechRemarks:{},
 			drop_type: [{ text: '(SELECT HERE)', value: null, disabled: true}, 	'Hardware', 
 																		'Software'],
 			drop_hardware: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'Troubleshooting', 
@@ -561,16 +564,21 @@ export default {
 																		'Reformat', 
 																		'Download', 
 																		'Assistance'],
-			drop_assistedBy: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'None', 
-																		'Lloyd Mandapat', 
-																		'Reiner Zagada', 
-																		'Michael Binondo', 
-																		'Mark Jayson Sison', 
-																		'Chester Francisco', 
-																		'Joram Kate Leonardo', 
-																		'Etienne Wayne Amparado', 
-																		'Mc Gyver Basaya', 
-																		'Jomar Rabanera'],
+            selected1: 'None',
+            selected2: 'None',
+			drop_assistedBy: [
+                { value: 'None', text: 'None' },
+                { value: 'Etienne Wayne Amparado', text: 'Amparado, Etienne Wayne ' },
+                { value: 'Mc Gyver Basaya', text: 'Basaya, Mc Gyver' },
+                { value: 'Michael Binondo', text: 'Binondo, Michael' },
+                { value: 'John Michael Cagadas', text: 'Cagadas, John Michael' },
+                { value: 'Chester Francisco', text: 'Francisco, Chester' },
+                { value: 'Joram Kate Leonardo', text: 'Leonardo, Joram Kate' },
+                { value: 'Lloyd Mandapat', text: 'Mandapat, Lloyd' },
+                { value: 'Jomar Rabanera', text: 'Rabanera, Jomar' },
+                { value: 'Mark Jayson Sison', text: 'Sison, Mark Jayson' },
+                { value: 'Reiner Zagada', text: 'Zagada, Reiner' }
+            ],
 
             errors : '',
             infoModal: {
@@ -842,8 +850,8 @@ export default {
                 formData_.append('supportType_', this.assignedTicketData.supportType);
                 formData_.append('externalOtherType_', this.assignedTicketData_update.externalOtherType);
                 formData_.append('mode_', this.assignedTicketData.mode);
-                formData_.append('assisted_by_1', this.assignedTicketData.assisted_by_1);
-                formData_.append('assisted_by_2', this.assignedTicketData.assisted_by_2);
+                formData_.append('assisted_by_1', this.selected1);
+                formData_.append('assisted_by_2', this.selected2);
                 formData_.append('clientNote_', this.assignedTicketData_update.clientNote);
                 formData_.append('type', this.assignedTicketData.type);
                 formData_.append('ticket_completed', date_ticketCreated);
@@ -939,8 +947,8 @@ export default {
                 formData_.append('supportType_', this.assignedTicketData.supportType);
                 formData_.append('externalOtherType_', this.assignedTicketData_update.externalOtherType);
                 formData_.append('mode_', this.assignedTicketData.mode);
-                formData_.append('assisted_by_1', this.assignedTicketData.assisted_by_1);
-                formData_.append('assisted_by_2', this.assignedTicketData.assisted_by_2);
+                formData_.append('assisted_by_1', this.selected1);
+                formData_.append('assisted_by_2', this.selected2);
                 formData_.append('clientNote_', this.assignedTicketData_update.clientNote);
                 formData_.append('type', this.assignedTicketData.type);
                 formData_.append('ticket_completed', date_ticketCreated);
@@ -1028,7 +1036,7 @@ export default {
                 let formData = new FormData();
                 formData.append('ticket_updated', date_ticketCreated);
 
-                formData.append('tech_remarks', this.assignedTicketDataTechRemarks_update.tech_remarks);
+                formData.append('tech_remarks', this.assignedTicketDataTechRemarks.tech_remarks);
                 
                 const response = await ticket_service.updateRemarks(this.assignedTicketData.id, formData);
                 this.flashMessage.success({
@@ -1051,9 +1059,17 @@ export default {
             formData_activityLog.append('activity_id', activity_id);
             formData_activityLog.append('activity_date', activity_date);
             formData_activityLog.append('ticket_id', ticket_id);
+            formData_activityLog.append('remarks_data', this.assignedTicketDataTechRemarks.tech_remarks);
             const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
 
-            this.loadAllTicketDetails();
+
+            // let formData_remarksLog = new FormData();
+            // formData_remarksLog.append('ticket_id', this.assignedTicketData.reference_code);
+            // formData_remarksLog.append('remarks_data', this.assignedTicketDataTechRemarks_update.tech_remarks);
+            // formData_remarksLog.append('assigned_staff', this.assignedTicketData.assignedStaff);
+            // formData_remarksLog.append('remarks_date', date_ticketCreated);
+            // const response_remarksLog = await ticket_service.addRemarksLog(formData_remarksLog);
+            // this.loadAllTicketDetails();
         },
     }
 }

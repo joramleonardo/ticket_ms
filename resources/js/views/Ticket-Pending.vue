@@ -195,14 +195,14 @@
                                         <span style="font-weight: bold"> ASSIGN A STAFF </span>
                                         <b-form-group class="group">
                                             <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" size="sm" id="assignedStaff" v-model="assignedTicketData.assignedStaff" :options="options_staff" required></b-form-select>
+                                            <b-form-select  size="sm" id="assignedStaff" v-model="selected_staff" :options="options_staff" required></b-form-select>
                                         </b-form-group>
                                     </div>
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <span style="font-weight: bold"> SET PRIORITY LEVEL</span>
-                                        <b-form-group class="group" >
-                                            <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select style="background-color: rgb(239 239 239);" size="sm" id="priority" v-model="assignedTicketData.priority" :options="options_priority" required> </b-form-select>
+                                        <b-form-group class="group">
+                                            <label for="priority" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
+                                            <b-form-select  size="sm" :options="options_priority" id="priority"  v-model="selected_priority"  required></b-form-select>
                                         </b-form-group>
                                     </div>
                                 </div>
@@ -303,14 +303,14 @@
                                         <span style="font-weight: bold"> ASSIGN A STAFF </span>
                                         <b-form-group class="group">
                                             <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select  size="sm" id="assignedStaff" v-model="assignedTicketData.assignedStaff" :options="options_staff" required></b-form-select>
+                                            <b-form-select  size="sm" id="assignedStaff" v-model="selected_staff" :options="options_staff" required></b-form-select>
                                         </b-form-group>
                                     </div>
                                     <div class="col-md-6 col-lg-6 mb-0">
                                         <span style="font-weight: bold"> SET PRIORITY LEVEL</span>
                                         <b-form-group class="group">
-                                            <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                            <b-form-select  size="sm" id="priority" v-model="assignedTicketData.priority" :options="options_priority" required></b-form-select>
+                                            <label for="priority" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
+                                            <b-form-select  size="sm" :options="options_priority" id="priority"  v-model="selected_priority"  required></b-form-select>
                                         </b-form-group>
                                     </div>
                                 </div>
@@ -406,19 +406,21 @@ export default {
                 { key: 'clientNote', label: ''},
             ],
             selected: null,
+            selected_staff: null,
             options_staff: [
                 { value: null, text: 'Please select staff', disabled: true},
-                { value: 'Lloyd Mandapat', text: 'Lloyd Mandapat' },
-                { value: 'Reiner Zagada', text: 'Reiner Zagada' },
-                { value: 'Michael Binondo', text: 'Michael Binondo' },
-                { value: 'Mark Jayson Sison', text: 'Mark Jayson Sison' },
-                { value: 'Chester Francisco', text: 'Chester Francisco' },
-                { value: 'Joram Kate Leonardo', text: 'Joram Kate Leonardo' },
-                { value: 'Etienne Wayne Amparado', text: 'Etienne Wayne Amparado' },
-                { value: 'Mc Gyver Basaya', text: 'Mc Gyver Basaya' },
-                { value: 'Jomar Rabanera', text: 'Jomar Rabanera' },
-                { value: 'John Michael Cagadas', text: 'John Michael Cagadas' },
+                { value: 'Etienne Wayne Amparado', text: 'Amparado, Etienne Wayne ' },
+                { value: 'Mc Gyver Basaya', text: 'Basaya, Mc Gyver' },
+                { value: 'Michael Binondo', text: 'Binondo, Michael' },
+                { value: 'John Michael Cagadas', text: 'Cagadas, John Michael' },
+                { value: 'Chester Francisco', text: 'Francisco, Chester' },
+                { value: 'Joram Kate Leonardo', text: 'Leonardo, Joram Kate' },
+                { value: 'Lloyd Mandapat', text: 'Mandapat, Lloyd' },
+                { value: 'Jomar Rabanera', text: 'Rabanera, Jomar' },
+                { value: 'Mark Jayson Sison', text: 'Sison, Mark Jayson' },
+                { value: 'Reiner Zagada', text: 'Zagada, Reiner' }
             ],
+            selected_priority:'Low',
             options_priority: [
                 { value: null, text: 'Please select priority level', disabled: true},
                 { value: 'Low', text: 'Low' },
@@ -544,8 +546,8 @@ export default {
                 let formData = new FormData();
                 formData.append('reference_code', this.assignedTicketData.reference_code);
                 formData.append('approved_by', this.displayName);
-                formData.append('assignedStaff', this.assignedTicketData.assignedStaff);
-                formData.append('priority', this.assignedTicketData.priority);
+                formData.append('assignedStaff', this.selected_staff);
+                formData.append('priority', this.selected_priority);
                 formData.append('ticket_approved', date_ticketCreatedComplete);
                 formData.append('ticket_updated', date_ticketCreatedComplete);
 
@@ -560,7 +562,7 @@ export default {
 				});
             }
 
-            let username = this.assignedTicketData.assignedStaff;
+            let username = this.selected_staff;
             let activity_id = 4;
             let activity_date = date_ticketCreatedComplete;
             let ticket_id = this.assignedTicketData.reference_code;

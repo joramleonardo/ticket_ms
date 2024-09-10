@@ -12,6 +12,7 @@ use App\TicketReferenceCode;
 use App\TicketStatus;
 use App\Activity;
 use App\ActivityLog;
+use App\Remarks;
 use Session;
 
 
@@ -109,12 +110,42 @@ class TicketController extends Controller
         $data->activity_id = $request->activity_id;
         $data->activity_date = $request->activity_date;
         $data->ticket_id = $request->ticket_id;
+        $data->remarks_data = $request->remarks_data;
+        $data->save();
+    }
+
+    public function addRemarksLog(Request $request){
+        $data = new Remarks(); // insert into table tblremarks
+
+        $data->ticket_id = $request->ticket_id;
+        $data->remarks_data = $request->remarks_data;
+        $data->assigned_staff = $request->assigned_staff;
+        $data->remarks_date = $request->remarks_date;
         $data->save();
     }
 
     public function loadActivityLog(Request $request, $id){
         $data = ActivityLog::join('ticket_statuses','activity_logs.ticket_id', '=', 'ticket_statuses.reference_code')
+                            ->join('tickets','ticket_statuses.reference_code', '=', 'tickets.reference_code')
                             ->where('activity_logs.ticket_id', $id)
+                            ->select('tickets.id', 'tickets.externalName', 'tickets.clientNote', 'tickets.internal_external',
+                                    'ticket_statuses.reference_code', 'ticket_statuses.assignedStaff', 'ticket_statuses.approved_by', 'ticket_statuses.remarks', 'ticket_statuses.tech_remarks',
+                                    'activity_logs.ticket_id', 'activity_logs.remarks_data', 'activity_logs.activity_id', 'activity_logs.username', 'activity_logs.created_at')
+                            ->orderBy('activity_logs.created_at', 'desc')
+                            ->get();
+
+                            // join('tickets','ticket_statuses.reference_code', '=', 'tickets.reference_code')
+                            // ->join('ticket_employees', 'tickets.employee_code','=', 'ticket_employees.employee_code')
+        
+        return response()->json($data, 200);
+    }
+
+    public function loadRemarksLog(Request $request, $id){
+        $data = Remarks::join('ticket_statuses','remarks.ticket_id', '=', 'ticket_statuses.reference_code')
+                            ->where('remarks.ticket_id', $id)
+                            ->select('ticket_statuses.reference_code',
+                                    'remarks.remarks_data', 'remarks.assigned_staff', 'remarks.remarks_date')
+                            ->orderBy('remarks.created_at', 'desc')
                             ->get('*');
         
         return response()->json($data, 200);

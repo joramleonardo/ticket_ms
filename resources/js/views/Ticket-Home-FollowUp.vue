@@ -133,6 +133,7 @@
                                         <!-- {{event.id}}<br>
                                         {{event.ticket_id}}<br>
                                         {{event.internal_external}} -->
+                                        Rating Status: 
                                         <router-link target="_blank" :to="{name: 'rating', params: {id: event.id, type: event.internal_external}}">
                                             <b-button size="sm" class="mr-1 jkl-btn-view btn-submit-rating">Click here to Submit Rating</b-button>
                                         </router-link>

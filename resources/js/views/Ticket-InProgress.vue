@@ -614,8 +614,7 @@ export default {
                 { key: 'internal_external', label: 'Client Type'},
                 { key: 'supportType', label: 'Support Type'},
                 { key: 'status', label: 'Status'},
-
-                { key: 'details', label: 'Ticket Details'},
+                { key: 'details', label: 'Details'},
                 { key: 'actions', label: 'Action' }
             ],
             fields2: [

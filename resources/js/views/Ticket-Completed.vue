@@ -810,7 +810,7 @@ export default {
         completeTicket: async function(data) {
             this.assignedTicketData = {...data}
             this.assignedTicketData_update = {...data}
-            let govTypeId = this.assignedTicketData_update.	supportType;
+            let govTypeId = this.assignedTicketData_update.supportType;
             if (govTypeId == "Livestream" || govTypeId == "IS" || govTypeId == "TWG"|| govTypeId == "Other"){
                 this.$refs['assignModalForm_1'].show();
             } else if (govTypeId == "Technical Support" ){

@@ -328,6 +328,15 @@ class TicketController extends Controller
         $data->save();
     }
 
+    public function updatePending_Ticket(Request $request, $id){
+        $data = Ticket::where('id', $id)->first();
+
+        //PENDING/NEW UPDATE
+        $data->supportType = $request->supportType;
+        
+        $data->save();
+    }
+
     public function updateApproved(Request $request, $id){
         $data = TicketStatus::where('id', $id)->first();
 

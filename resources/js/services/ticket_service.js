@@ -76,6 +76,10 @@ export function updatePending(id, data){
     return httpFile().post(`updatePending/${id}`, data);
 }
 
+export function updatePending_Ticket(id, data){
+    return httpFile().post(`updatePending_Ticket/${id}`, data);
+}
+
 export function updateApproved(id, data){
     return httpFile().post(`updateApproved/${id}`, data);
 }

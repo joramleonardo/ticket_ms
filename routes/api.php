@@ -111,6 +111,7 @@ Route::post('technical_addTicketStatus_starbooks', 'TicketController@technical_a
 
 Route::post('/updateStatus/{id}', 'TicketController@updateStatus');
 Route::post('/updatePending/{id}', 'TicketController@updatePending');
+Route::post('/updatePending_Ticket/{id}', 'TicketController@updatePending_Ticket');
 Route::post('/updateApproved/{id}', 'TicketController@updateApproved');
 Route::post('/updateApproved_/{id}', 'TicketController@updateApproved_');
 Route::post('/updateRemarks/{id}', 'TicketController@updateRemarks');

@@ -191,14 +191,21 @@
                                         </template>
                                 </b-table>
                                 <div class="row">
-                                    <div class="col-md-6 col-lg-6 mb-0">
+                                    <div class="col-md-4 col-lg-4 mb-0">
+                                        <span style="font-weight: bold"> REQUEST TYPE </span>
+                                        <b-form-group class="group">
+                                            <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
+                                            <b-form-select  size="sm" id="supportType" v-model="assignedTicketData.supportType" :options="options_supportType" required></b-form-select>
+                                        </b-form-group>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4 mb-0">
                                         <span style="font-weight: bold"> ASSIGN A STAFF </span>
                                         <b-form-group class="group">
                                             <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
                                             <b-form-select  size="sm" id="assignedStaff" v-model="selected_staff" :options="options_staff" required></b-form-select>
                                         </b-form-group>
                                     </div>
-                                    <div class="col-md-6 col-lg-6 mb-0">
+                                    <div class="col-md-4 col-lg-4 mb-0">
                                         <span style="font-weight: bold"> SET PRIORITY LEVEL</span>
                                         <b-form-group class="group">
                                             <label for="priority" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
@@ -370,6 +377,13 @@ export default {
             sortDirection: 'desc',
             sortBy: 'id',
             sortDesc: true,
+            options_supportType: [
+                { value: null, text: 'Please select an option', disabled: true },
+                { value: 'Technical Support', text: 'Technical Support' },
+                { value: 'Livestream', text: 'Livestream' },
+                { value: 'IS', text: 'Information System' },
+                { value: 'TWG', text: 'Technical Working Group' }
+            ],
             fields_PENDING: [
                 { key: 'reference_code', label: 'Reference Code'},
                 { key: 'ticket_created', label: 'Date Requested'},
@@ -550,10 +564,16 @@ export default {
                 formData.append('priority', this.selected_priority);
                 formData.append('ticket_approved', date_ticketCreatedComplete);
                 formData.append('ticket_updated', date_ticketCreatedComplete);
-
                 formData.append('status', 'Approved');
 
                 const response = await ticket_service.updatePending(this.assignedTicketData.id, formData);
+
+                
+
+                let formData_Ticket = new FormData();
+                formData.append('supportType', this.assignedTicketData.supportType);
+
+                const response_Ticket = await ticket_service.updatePending_Ticket(this.assignedTicketData.id, formData_Ticket);
                 
 
             } catch (error) {

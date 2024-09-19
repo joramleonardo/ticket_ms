@@ -27,7 +27,7 @@
                                     <b-badge variant="success" class="sidebar-badge">{{this.totalAll}}</b-badge>
                                 </div>
                                 <div v-else-if="this.totalAll != 0">
-                                    <b-badge variant="danger" class="sidebar-badge">{{this.totalAll}}</b-badge>
+                                    <b-badge variant="success" class="sidebar-badge">{{this.totalAll}}</b-badge>
                                 </div>
                             </router-link>
                             <router-link to="/ticket/admin/pending" class="nav-link" exact>

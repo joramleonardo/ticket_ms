@@ -571,9 +571,10 @@ export default {
                 
 
                 let formData_Ticket = new FormData();
-                formData.append('supportType', this.assignedTicketData.supportType);
+                formData_Ticket.append('supportType', this.assignedTicketData.supportType);
 
                 const response_Ticket = await ticket_service.updatePending_Ticket(this.assignedTicketData.id, formData_Ticket);
+                
                 
 
             } catch (error) {

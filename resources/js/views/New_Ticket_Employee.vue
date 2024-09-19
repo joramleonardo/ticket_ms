@@ -33,7 +33,7 @@
                             <div class="col-md-3 col-lg-3 mb-0">
                                 <b-form-group class="group" id="form_employeeId">
                                     <label for="employee_code" class="label" style="color:black; font-weight: bold"><span style="font-size: 12px; color: red">*</span>Request Type:</label>
-                                    <b-form-select v-model="ticketData.supportType" :options="options_supportType"></b-form-select>
+                                    <b-form-select v-model="selected_supportType" :options="options_supportType"></b-form-select>
                                 </b-form-group> 
                             </div>
                         </div>
@@ -67,21 +67,21 @@
                                 <span style="font-weight: bold"> Assigned Staff:</span>
                                 <b-form-group class="group">
                                     <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                    <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.attended_by" :options="options_staff" required></b-form-select>
+                                    <b-form-select  size="sm" id="assignedStaff" v-model="selected_staff" :options="options_staff" required></b-form-select>
                                 </b-form-group>
                             </div>
                             <div class="col-md-4 col-lg-4 mb-0">
                                 <span style="font-weight: bold"> Assisted By:</span>
                                 <b-form-group class="group">
                                     <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                    <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.assisted_by_1" :options="drop_assistedBy" required></b-form-select>
+                                    <b-form-select  size="sm" id="assignedStaff" v-model="selected1" :options="drop_assistedBy" required></b-form-select>
                                 </b-form-group>
                             </div>
                             <div class="col-md-4 col-lg-4 mb-0">
                                 <span style="font-weight: bold"> Assisted By:</span>
                                 <b-form-group class="group">
                                     <label for="type" class="label"><span style="font-style: italic; font-size: 10px; text-transform: none">  Please select below... </span></label>
-                                    <b-form-select  size="sm" id="assignedStaff" v-model="ticketData.assisted_by_2" :options="drop_assistedBy" required></b-form-select>
+                                    <b-form-select  size="sm" id="assignedStaff" v-model="selected2" :options="drop_assistedBy" required></b-form-select>
                                 </b-form-group>
                             </div>
                         </div>
@@ -184,6 +184,7 @@
                 sortBy: 'id',
                 sortDesc: true,
                 specificRequest: '',
+                selected_supportType: 'Technical Support',
                 options_supportType: [
                     { value: null, text: 'Please select an option', disabled: true },
                     { value: 'Technical Support', text: 'Technical Support' },
@@ -241,17 +242,19 @@
                     { key: 'assisted_by', label: 'Assisted By'},
                     { key: 'tech_remarks', label: 'Note'},
                 ],
+                selected_staff: null,
                 options_staff: [
                     { value: null, text: 'Please select staff', disabled: true},
-                    { value: 'Lloyd Mandapat', text: 'Lloyd Mandapat' },
-                    { value: 'Reiner Zagada', text: 'Reiner Zagada' },
-                    { value: 'Michael Binondo', text: 'Michael Binondo' },
-                    { value: 'Mark Jayson Sison', text: 'Mark Jayson Sison' },
-                    { value: 'Chester Francisco', text: 'Chester Francisco' },
-                    { value: 'Joram Kate Leonardo', text: 'Joram Kate Leonardo' },
-                    { value: 'Etienne Wayne Amparado', text: 'Etienne Wayne Amparado' },
-                    { value: 'Mc Gyver Basaya', text: 'Mc Gyver Basaya' },
-                    { value: 'Jomar Rabanera', text: 'Jomar Rabanera' },
+                    { value: 'Etienne Wayne Amparado', text: 'Amparado, Etienne Wayne ' },
+                    { value: 'Mc Gyver Basaya', text: 'Basaya, Mc Gyver' },
+                    { value: 'Michael Binondo', text: 'Binondo, Michael' },
+                    { value: 'John Michael Cagadas', text: 'Cagadas, John Michael' },
+                    { value: 'Chester Francisco', text: 'Francisco, Chester' },
+                    { value: 'Joram Kate Leonardo', text: 'Leonardo, Joram Kate' },
+                    { value: 'Lloyd Mandapat', text: 'Mandapat, Lloyd' },
+                    { value: 'Jomar Rabanera', text: 'Rabanera, Jomar' },
+                    { value: 'Mark Jayson Sison', text: 'Sison, Mark Jayson' },
+                    { value: 'Reiner Zagada', text: 'Zagada, Reiner' }
                 ],
                 options_priority: [
                     { value: null, text: 'Please select priority level', disabled: true},
@@ -259,16 +262,21 @@
                     { value: 'Medium', text: 'Medium' },
                     { value: 'Urgent', text: 'Urgent' },
                 ],
-                drop_assistedBy: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'None', 
-                                                                            'Lloyd Mandapat', 
-                                                                            'Reiner Zagada', 
-                                                                            'Michael Binondo', 
-                                                                            'Mark Jayson Sison', 
-                                                                            'Chester Francisco', 
-                                                                            'Joram Kate Leonardo', 
-                                                                            'Etienne Wayne Amparado', 
-                                                                            'Mc Gyver Basaya', 
-                                                                            'Jomar Rabanera'],
+                selected1: 'None',
+                selected2: 'None',
+                drop_assistedBy: [
+                    { value: 'None', text: 'None' },
+                    { value: 'Etienne Wayne Amparado', text: 'Amparado, Etienne Wayne ' },
+                    { value: 'Mc Gyver Basaya', text: 'Basaya, Mc Gyver' },
+                    { value: 'Michael Binondo', text: 'Binondo, Michael' },
+                    { value: 'John Michael Cagadas', text: 'Cagadas, John Michael' },
+                    { value: 'Chester Francisco', text: 'Francisco, Chester' },
+                    { value: 'Joram Kate Leonardo', text: 'Leonardo, Joram Kate' },
+                    { value: 'Lloyd Mandapat', text: 'Mandapat, Lloyd' },
+                    { value: 'Jomar Rabanera', text: 'Rabanera, Jomar' },
+                    { value: 'Mark Jayson Sison', text: 'Sison, Mark Jayson' },
+                    { value: 'Reiner Zagada', text: 'Zagada, Reiner' }
+                ],
                 drop_assistedBy_sb: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'None', 
                                                                             'Jomar Rabanera'],
                 drop_hardware: [{ text: '(SELECT HERE)', value: null, disabled: true }, 	'Troubleshooting', 
@@ -464,7 +472,7 @@
                         formData_ticketData.append('clientType', "Government");
                         formData_ticketData.append('date1', date_ticketCreatedComplete2);
                         formData_ticketData.append('clientNote', this.ticketData.clientNote);
-                        formData_ticketData.append('supportType', this.ticketData.supportType);
+                        formData_ticketData.append('supportType', this.selected_supportType);
                         formData_ticketData.append('mode', "Service Form");
 
                         this.ticketData_update.reference_code = this.ref_code;
@@ -473,9 +481,9 @@
                         formData_ticketDataStatus.append('reference_code', this.ref_code);
                         formData_ticketDataStatus.append('status', 'Completed');
                         formData_ticketDataStatus.append('entry_date', date_ticketCreated);
-                        formData_ticketDataStatus.append('assignedStaff', this.ticketData.attended_by);
+                        formData_ticketDataStatus.append('assignedStaff', this.selected_staff);
                         formData_ticketDataStatus.append('approved_by', "Lloyd Mandapat");
-                        formData_ticketDataStatus.append('attended_by', this.ticketData.attended_by);
+                        formData_ticketDataStatus.append('attended_by', this.selected_staff);
                         formData_ticketDataStatus.append('priority', "Low");
                         formData_ticketDataStatus.append('ticket_approved', date_ticketCreatedComplete3);
                         formData_ticketDataStatus.append('ticket_attended', date_ticketCreatedComplete3);
@@ -490,8 +498,8 @@
                         formData_ticketDataStatus.append('software', this.ticketData.supportType_software);
                         formData_ticketDataStatus.append('supportType_', this.ticketData.supportType);
                         formData_ticketDataStatus.append('mode_', "Service Form");
-                        formData_ticketDataStatus.append('assisted_by_1', this.ticketData.assisted_by_1);
-                        formData_ticketDataStatus.append('assisted_by_2', this.ticketData.assisted_by_2);
+                        formData_ticketDataStatus.append('assisted_by_1', this.selected1);
+                        formData_ticketDataStatus.append('assisted_by_2', this.selected2);
                         formData_ticketDataStatus.append('clientNote_', this.ticketData.clientNote);
                         formData_ticketDataStatus.append('type', this.ticketData.type);
                         formData_ticketDataStatus.append('ticket_completed', date_ticketCreatedComplete3);

@@ -170,8 +170,16 @@
                                 ></b-form-textarea>
                             </b-form-group>
                             <b-form-group class="group" style="margin-top: 10px" align="left">
-                                <b-button type="submit" class=" btn-submit-rating " variant="outline-success">Submit</b-button>
-                                <b-button @click="showLink()" class=" btn-copy-arta-link" variant="outline-success">Copy CSM Form Link</b-button>
+                                <b-button type="submit" class=" btn-submit-rating " variant="outline-success">Submit Rating</b-button>
+                                <!-- <b-button @click="showLink()" class=" btn-copy-arta-link" variant="outline-success">Copy CSM Form Link</b-button> -->
+                                <b-button @click="showLink2()" class=" btn-copy-arta-link" variant="outline-success">Answer CSM Form Link</b-button>
+                                <!-- <a :href="csm_link" class="btn" variant="outline-success">
+                                    CSM Form
+                                </a> -->
+                                
+                                <!-- <router-link target="_blank" :to="this.csm_link">
+                                    <b-button class="btn-copy-arta-link" variant="outline-success">Answer CSM Form</b-button>
+                                </router-link> -->
                             </b-form-group>
                         </div>
                     </b-form>
@@ -564,6 +572,7 @@ export default {
             ticket_internalExternal : this.$route.params.type,
             ticket: {},
             ticket_type: {},
+            csm_link: "",
             ticket1: [],
             ticketDetails: [],
             ticketData:{
@@ -785,6 +794,18 @@ export default {
                 + "&entry.249930846=" + a9
                 + "&entry.1821298=" + a10;
                 
+                this.csm_link = "https://docs.google.com/forms/d/e/1FAIpQLSfda5Huf3g5zB5kIoemYLrM-SPR41VmTYRQ2gyeGwaeTtXPsg/viewform?usp=pp_url"
+                + "&entry.1725600=" + "0"
+                + "&entry.1819805617=" + "0"
+                + "&entry.298800992=" + a5
+                + "&entry.855472974=" + a6
+                + "&entry.738949883=" + a9
+                + "&entry.2079193609=" + a10
+                + "&entry.1449935561=" + a5
+                + "&entry.1990048049=" + a6
+                + "&entry.249930846=" + a9
+                + "&entry.1821298=" + a10;
+                
                 const textarea = document.createElement('textarea');
                 textarea.value = __link;
                 textarea.style.position = 'fixed';
@@ -838,6 +859,72 @@ export default {
             this.flashMessage.success({
                 message: 'Link Copied Successfully! Open new browser and paste the link to answer CSM Form.'
             });
+        },
+        showLink2: async function(data){
+            if (this.ticket.internal_external === "Internal"){
+
+                const date = new Date(this.ticket.date1);
+                let currentDay= String(date.getDate()).padStart(2, '0');
+                let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+                let currentYear = date.getFullYear();
+                let currentDateTime = currentYear + "-" + currentMonth + "-" + currentDay;
+
+                const date2 = new Date(this.ticket.date1);
+                let currentDay2 = String(date.getDate()).padStart(2, '0');
+                let currentMonth2 = String(date.getMonth()+1).padStart(2,"0");
+                let currentYear2 = date.getFullYear();
+                let currentDateTime2 = currentYear2 + "-" + currentMonth2 + "-" + currentDay2;
+
+                let a5 = this.ticket.reference_code.replaceAll(" ", "+");
+                let a6 = this.ticket.externalName.replaceAll(" ", "+");
+                let a9 = currentDateTime;
+                let a10 = currentDateTime2;
+
+                let __link = "https://docs.google.com/forms/d/e/1FAIpQLSfda5Huf3g5zB5kIoemYLrM-SPR41VmTYRQ2gyeGwaeTtXPsg/viewform?usp=pp_url"
+                + "&entry.1725600=" + "0"
+                + "&entry.1819805617=" + "0"
+                + "&entry.298800992=" + a5
+                + "&entry.855472974=" + a6
+                + "&entry.738949883=" + a9
+                + "&entry.2079193609=" + a10
+                + "&entry.1449935561=" + a5
+                + "&entry.1990048049=" + a6
+                + "&entry.249930846=" + a9
+                + "&entry.1821298=" + a10;
+
+                window.open(__link, '_blank');
+            }
+
+            else if (this.ticket.internal_external === "External"){
+
+                const date = new Date(this.ticket.date1);
+                let currentDay= String(date.getDate()).padStart(2, '0');
+                let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+                let currentYear = date.getFullYear();
+                let currentDateTime = currentYear + "-" + currentMonth + "-" + currentDay;
+
+                const date2 = new Date(this.ticket.date2);
+                let currentDay2 = String(date2.getDate()).padStart(2, '0');
+                let currentMonth2 = String(date2.getMonth()+1).padStart(2,"0");
+                let currentYear2 = date2.getFullYear();
+                let currentDateTime2 = currentYear2 + "-" + currentMonth2 + "-" + currentDay2;
+
+                console.log("this is external");
+                let a5 = this.ticket.reference_code.replaceAll(" ", "+");
+                let a6 = this.ticket.externalName.replaceAll(" ", "+"); 
+                let a7 = this.ticket.externalAgency.replaceAll(" ", "+");
+                let a8 = currentDateTime; 
+                let a9 = currentDateTime2; 
+
+                let __link = "https://docs.google.com/forms/d/e/1FAIpQLSdG0armoL-XLSz6T2BpXJ_JUMU1tg-NDxaf40q6qgpsMmJjhg/viewform?usp=pp_url"
+                + "&entry.478303025=" + a6
+                + "&entry.1637951943=" + a5
+                + "&entry.292814853=" + a7
+                + "&entry.1555563534=" + a8
+                + "&entry.1650701328=" + a9;
+
+                window.open(__link, '_blank');
+            }
         },
     }
 }

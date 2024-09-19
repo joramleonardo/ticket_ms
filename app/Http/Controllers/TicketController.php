@@ -128,9 +128,9 @@ class TicketController extends Controller
         $data = ActivityLog::join('ticket_statuses','activity_logs.ticket_id', '=', 'ticket_statuses.reference_code')
                             ->join('tickets','ticket_statuses.reference_code', '=', 'tickets.reference_code')
                             ->where('activity_logs.ticket_id', $id)
-                            ->select('tickets.id', 'tickets.externalName', 'tickets.clientNote', 'tickets.internal_external',
-                                    'ticket_statuses.reference_code', 'ticket_statuses.assignedStaff', 'ticket_statuses.approved_by', 'ticket_statuses.remarks', 'ticket_statuses.tech_remarks',
-                                    'activity_logs.ticket_id', 'activity_logs.remarks_data', 'activity_logs.activity_id', 'activity_logs.username', 'activity_logs.created_at')
+                            ->select('tickets.id', 'tickets.ticket_created', 'ticket_statuses.ticket_completed', 'tickets.externalName', 'tickets.clientNote', 'tickets.internal_external',
+                                    'ticket_statuses.reference_code', 'ticket_statuses.entry_date', 'ticket_statuses.assignedStaff', 'ticket_statuses.approved_by', 'ticket_statuses.remarks', 'ticket_statuses.tech_remarks', 'ticket_statuses.actions_taken',
+                                    'ticket_statuses.rating_status', 'activity_logs.ticket_id', 'activity_logs.remarks_data', 'activity_logs.activity_id', 'activity_logs.username', 'activity_logs.created_at')
                             ->orderBy('activity_logs.created_at', 'desc')
                             ->get();
 

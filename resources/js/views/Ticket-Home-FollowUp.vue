@@ -162,6 +162,34 @@
                                         </span> <br>
                                         Rating has been submitted
                                     </span>
+                                    <span v-if="event.activity_id === '10'">
+                                        <span style="font-weight: 400; font-style:italic; font-size: 14px">
+                                            {{new Date(event.created_at).toLocaleTimeString()}}
+                                        </span> <br>
+                                        <span style="font-weight: 700; font-style:italic;">Ticket has been completed </span> <br><br>
+                                        Date ticket created: <span style="font-weight: 700"> [{{event.entry_date}}] </span> <br>
+                                        Date ticket completed: <span style="font-weight: 700"> [{{event.ticket_completed}}] </span> <br>
+                                        Submitted by: <span style="font-weight: 700"> [{{event.externalName}}] </span> <br>
+                                        Attended by: <span style="font-weight: 700"> [{{event.assignedStaff}}] </span> <br>
+                                        Problem that needed support: <span style="font-weight: 700"> [{{event.clientNote}}] </span> <br>
+                                        Actions taken: <span style="font-weight: 700"> [{{event.clientNote}}] </span> <br>
+                                        Rating Status: 
+                                        <span v-if="event.rating_status === 'Pending'">
+                                            <router-link target="_blank" :to="{name: 'rating', params: {id: event.id, type: event.internal_external}}">
+                                                <b-button size="sm" class="mr-1 jkl-btn-view btn-submit-rating">Click here to Submit Rating</b-button>
+                                            </router-link>
+                                        </span>
+                                        <span v-if="event.rating_status === 'Received'">
+                                            <b-button disabled size="sm" class="mr-1 jkl-btn-view" style="background-color: rgb(21, 202, 32) !important;">Received</b-button>
+                                        </span>
+
+
+                                        <!-- Remarks: <span style="font-weight: 700"> [{{event.remarks}}] </span> <br><br>
+                                        Rating Status: 
+                                        <router-link target="_blank" :to="{name: 'rating', params: {id: event.id, type: event.internal_external}}">
+                                            <b-button size="sm" class="mr-1 jkl-btn-view btn-submit-rating">Click here to Submit Rating</b-button>
+                                        </router-link> -->
+                                    </span>
                                 </div>
                             </li>
                             </span>

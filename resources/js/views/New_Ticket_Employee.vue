@@ -8,8 +8,6 @@
         <div class="col-xl-12">
             <b-card class="m-2">
                 <form class="loginForm" id="loginForm" v-on:submit.prevent="createTicket">
-                    
-                        
                         <div style="margin-botton: 15px">
                             <span style="font-size: 12px; color: red; font-style: italic; ">* Required Fields</span>
                         </div>
@@ -506,6 +504,22 @@
                             message: 'Please fill out the form!'
                         });
                     }
+
+                    let username = this.ticketData.attended_by;
+                    let activity_id = 10;
+                    let activity_date = date_ticketCreatedComplete3;
+                    let ticket_id = this.ref_code;
+
+                    let formData_activityLog = new FormData();
+                    formData_activityLog.append('username', username);
+                    formData_activityLog.append('activity_id', activity_id);
+                    formData_activityLog.append('activity_date', activity_date);
+                    formData_activityLog.append('ticket_id', ticket_id);
+                    const response_activityLog = await ticket_service.addActivityLog(formData_activityLog);
+
+
+
+
 
                     // this.$refs.requestModalForm_internal.hide()
                     this.$refs.showReferenceCode.show() 

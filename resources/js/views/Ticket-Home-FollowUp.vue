@@ -172,7 +172,7 @@
                                         Submitted by: <span style="font-weight: 700"> [{{event.externalName}}] </span> <br>
                                         Attended by: <span style="font-weight: 700"> [{{event.assignedStaff}}] </span> <br>
                                         Problem that needed support: <span style="font-weight: 700"> [{{event.clientNote}}] </span> <br>
-                                        Actions taken: <span style="font-weight: 700"> [{{event.clientNote}}] </span> <br>
+                                        Actions taken: <span style="font-weight: 700"> [{{event.actions_taken}}] </span> <br>
                                         Rating Status: 
                                         <span v-if="event.rating_status === 'Pending'">
                                             <router-link target="_blank" :to="{name: 'rating', params: {id: event.id, type: event.internal_external}}">

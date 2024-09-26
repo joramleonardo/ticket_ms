@@ -14,7 +14,7 @@ class Ticket extends Model
         'software', //5
         'remarks', //6
         'reference_code', //7
-];
+    ];
 
     public function employee(){
         return $this->belongsTo('App\TicketEmployees', 'id');

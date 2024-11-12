@@ -115,7 +115,6 @@
                         this.$router.push('/ticket/superadmin/status');
                     } 
                     else if(response.token_scope == 'admin'){
-                        // this.$router.push('/ticket/admin/status');
                         this.$router.push('/ticket/admin/dashboard');
                     } 
                     else if(response.token_scope == 'staff'){
@@ -137,11 +136,11 @@
                     
 
                 } catch(error) {
-                    this.flashMessage.error({
-                    message: 'Some error occured! Please try again.',
-                    time: 5000
-                    });
-            }
+                        this.flashMessage.error({
+                        message: 'Some error occured! Please try again.',
+                        time: 5000
+                        });
+                }
             },
         },
     }
